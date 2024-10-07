@@ -1,0 +1,41 @@
+title: "Review of Some Useful Math & Software"
+subtitle: |
+    | Algebra, Functions, Graphs, and Probability
+    |
+    | University Minor Economics • Vrije Universiteit Amsterdam
+author:
+    name: "Stefan Hochguertel"
+date: April 26, 2024
+date-modified: today
+toc: true
+toc-title: Contents
+toc-expand: 1
+toc-depth: 3
+reference-location: document
+citation-location: document
+number-sections: true
+fig-cap-location: top
+tbl-cap-location: top
+language:
+  en:
+    crossref-tip-title:  "Exercise"
+    crossref-tip-prefix: "Exercise"
+    crossref-nte-title:  "Remark"
+    crossref-nte-prefix: "Remark"
+    crossref-cau-title:  "Example"
+    crossref-cau-prefix: "Example"
+crossref:
+  chapters: true
+format:
+  html:
+    page-layout: full
+    toc: true
+    toc-location: left
+    title-block-banner: "#FFDDFF"
+    title-block-banner-color: black
+    html-math-method: mathjax
+    include-in-header: 
+    - mathjaxdirective.html 
+abstract: |
+    No abstract as yet.
+    

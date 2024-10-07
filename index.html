@@ -1,0 +1,2389 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Stefan Hochguertel">
+<meta name="dcterms.date" content="2024-10-07">
+
+<title>Review of Some Useful Math</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="index_files/libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="index_files/libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="index_files/libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: black;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: black;
+background: #FFDDFF;
+      }
+</style>
+<script>
+
+MathJax = {
+
+  loader: {load: ['[tex]/tagformat']},
+
+  section: 1,
+
+  tex: {
+
+    tags: 'ams',
+
+    packages: {'[+]': ['tagformat', 'sections']},
+
+    tagformat: {
+
+      number: (n) => MathJax.config.section + '.' + n
+
+    }
+
+  },
+
+  startup: {
+
+    ready() {
+
+      const Configuration = MathJax._.input.tex.Configuration.Configuration;
+
+      const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+
+      new CommandMap('sections', {
+
+        nextSection: 'NextSection'
+
+      }, {
+
+        NextSection(parser, name) {
+
+          MathJax.config.section++;
+
+          parser.tags.counter = parser.tags.allCounter = 0;
+
+        }
+
+      });
+
+      Configuration.create(
+
+        'sections', {handler: {macro: ['sections']}}
+
+      );
+
+      MathJax.startup.defaultReady();
+
+   }
+
+  }
+
+};
+
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body>
+
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page-right">
+      <h1 class="title">Review of Some Useful Math</h1>
+            <p class="subtitle lead"></p><div class="line-block">Algebra, Functions, Graphs, and a bit of Calculus<br>
+<br>
+University Minor Economics • Vrije Universiteit Amsterdam</div><p></p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-page-right">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Stefan Hochguertel </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">October 7, 2024</p>
+      </div>
+    </div>
+    
+      <div>
+      <div class="quarto-title-meta-heading">Modified</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">October 7, 2024</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  <div>
+    <div class="abstract">
+      <div class="block-title">Abstract</div>
+      <p>This document contains a brief listing of useful math that many economics courses beyong principles levels would use. We skip all proofs and appeal to intuition.</p>
+    </div>
+  </div>
+  
+  </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-full toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#sec-ch:preface" id="toc-sec-ch:preface" class="nav-link active" data-scroll-target="#sec-ch\:preface">Preface</a></li>
+  <li><a href="#sec-ch:notation" id="toc-sec-ch:notation" class="nav-link" data-scroll-target="#sec-ch\:notation"><span class="header-section-number">1</span> Notation</a>
+  <ul class="collapse">
+  <li><a href="#sec-sn:greek" id="toc-sec-sn:greek" class="nav-link" data-scroll-target="#sec-sn\:greek"><span class="header-section-number">1.1</span> List of Greek Letters</a></li>
+  <li><a href="#notation-and-conventions-in-economics" id="toc-notation-and-conventions-in-economics" class="nav-link" data-scroll-target="#notation-and-conventions-in-economics"><span class="header-section-number">1.2</span> Notation and Conventions in Economics</a></li>
+  </ul></li>
+  <li><a href="#sec-ch:math" id="toc-sec-ch:math" class="nav-link" data-scroll-target="#sec-ch\:math"><span class="header-section-number">2</span> Math Review</a>
+  <ul class="collapse">
+  <li><a href="#sec-sn:basics" id="toc-sec-sn:basics" class="nav-link" data-scroll-target="#sec-sn\:basics"><span class="header-section-number">2.1</span> Basics of Algebra and Geometry</a>
+  <ul class="collapse">
+  <li><a href="#sec-ssn:ops" id="toc-sec-ssn:ops" class="nav-link" data-scroll-target="#sec-ssn\:ops"><span class="header-section-number">2.1.1</span> Basic Operators</a></li>
+  <li><a href="#sec-ssn:parentheses" id="toc-sec-ssn:parentheses" class="nav-link" data-scroll-target="#sec-ssn\:parentheses"><span class="header-section-number">2.1.2</span> Expanding Brackets and Binomial Expressions</a></li>
+  <li><a href="#sec-ssn:geo" id="toc-sec-ssn:geo" class="nav-link" data-scroll-target="#sec-ssn\:geo"><span class="header-section-number">2.1.3</span> Geometry</a></li>
+  </ul></li>
+  <li><a href="#sec-sn:functionsone" id="toc-sec-sn:functionsone" class="nav-link" data-scroll-target="#sec-sn\:functionsone"><span class="header-section-number">2.2</span> Functions of One Variable</a>
+  <ul class="collapse">
+  <li><a href="#sec-ssn:funeq" id="toc-sec-ssn:funeq" class="nav-link" data-scroll-target="#sec-ssn\:funeq"><span class="header-section-number">2.2.1</span> Functions and Equations</a></li>
+  <li><a href="#sec-ssn:graphs" id="toc-sec-ssn:graphs" class="nav-link" data-scroll-target="#sec-ssn\:graphs"><span class="header-section-number">2.2.2</span> Graphs of Functions</a></li>
+  <li><a href="#sec-ssn:cont" id="toc-sec-ssn:cont" class="nav-link" data-scroll-target="#sec-ssn\:cont"><span class="header-section-number">2.2.3</span> Continuity and Monotonicity</a></li>
+  <li><a href="#sec-ssn:graphdemand" id="toc-sec-ssn:graphdemand" class="nav-link" data-scroll-target="#sec-ssn\:graphdemand"><span class="header-section-number">2.2.4</span> Economic Application: Graph of Demand Function</a></li>
+  <li><a href="#sec-sn:conc" id="toc-sec-sn:conc" class="nav-link" data-scroll-target="#sec-sn\:conc"><span class="header-section-number">2.2.5</span> Convexity and Concavity</a></li>
+  <li><a href="#sec-sn:logs" id="toc-sec-sn:logs" class="nav-link" data-scroll-target="#sec-sn\:logs"><span class="header-section-number">2.2.6</span> Logarithm and Exponential Function</a></li>
+  </ul></li>
+  <li><a href="#sec-sn:map2" id="toc-sec-sn:map2" class="nav-link" data-scroll-target="#sec-sn\:map2"><span class="header-section-number">2.3</span> Functions of Two or More Variables</a>
+  <ul class="collapse">
+  <li><a href="#definitions-and-argument-lists" id="toc-definitions-and-argument-lists" class="nav-link" data-scroll-target="#definitions-and-argument-lists"><span class="header-section-number">2.3.1</span> Definitions and Argument Lists</a></li>
+  <li><a href="#sec-sn:sys" id="toc-sec-sn:sys" class="nav-link" data-scroll-target="#sec-sn\:sys"><span class="header-section-number">2.3.2</span> Systems of Linear Equations</a></li>
+  <li><a href="#sec-sn:functionecon" id="toc-sec-sn:functionecon" class="nav-link" data-scroll-target="#sec-sn\:functionecon"><span class="header-section-number">2.3.3</span> Variables and Parameters in Economic Functions and Equations</a></li>
+  <li><a href="#sec-ssn:graphisoq" id="toc-sec-ssn:graphisoq" class="nav-link" data-scroll-target="#sec-ssn\:graphisoq"><span class="header-section-number">2.3.4</span> 3D Graphing and Graphing of Level Curves</a></li>
+  <li><a href="#graphing-demand-as-function-of-price-and-income" id="toc-graphing-demand-as-function-of-price-and-income" class="nav-link" data-scroll-target="#graphing-demand-as-function-of-price-and-income"><span class="header-section-number">2.3.5</span> Graphing Demand as Function of Price and Income</a></li>
+  </ul></li>
+  <li><a href="#sec-sn:anal1" id="toc-sec-sn:anal1" class="nav-link" data-scroll-target="#sec-sn\:anal1"><span class="header-section-number">2.4</span> Analysis of Functions of One Variable</a>
+  <ul class="collapse">
+  <li><a href="#sec-sn:anal" id="toc-sec-sn:anal" class="nav-link" data-scroll-target="#sec-sn\:anal"><span class="header-section-number">2.4.1</span> Analysis and Optimization</a></li>
+  <li><a href="#sec-sn:1stder" id="toc-sec-sn:1stder" class="nav-link" data-scroll-target="#sec-sn\:1stder"><span class="header-section-number">2.4.2</span> First Derivative</a></li>
+  <li><a href="#sec-ssn:elas" id="toc-sec-ssn:elas" class="nav-link" data-scroll-target="#sec-ssn\:elas"><span class="header-section-number">2.4.3</span> Elasticity</a></li>
+  <li><a href="#sec-sn:2ndder" id="toc-sec-sn:2ndder" class="nav-link" data-scroll-target="#sec-sn\:2ndder"><span class="header-section-number">2.4.4</span> Second Derivative</a></li>
+  <li><a href="#sec-sn:max" id="toc-sec-sn:max" class="nav-link" data-scroll-target="#sec-sn\:max"><span class="header-section-number">2.4.5</span> Maximization and Minimization</a></li>
+  </ul></li>
+  <li><a href="#sec-sn:anal2" id="toc-sec-sn:anal2" class="nav-link" data-scroll-target="#sec-sn\:anal2"><span class="header-section-number">2.5</span> Analysis of Functions of Two or More Variables</a>
+  <ul class="collapse">
+  <li><a href="#sec-sn:der2" id="toc-sec-sn:der2" class="nav-link" data-scroll-target="#sec-sn\:der2"><span class="header-section-number">2.5.1</span> Partial Derivatives</a></li>
+  <li><a href="#sec-sn:max2" id="toc-sec-sn:max2" class="nav-link" data-scroll-target="#sec-sn\:max2"><span class="header-section-number">2.5.2</span> Maximization with Two Variables</a></li>
+  <li><a href="#sec-sn:maxcf" id="toc-sec-sn:maxcf" class="nav-link" data-scroll-target="#sec-sn\:maxcf"><span class="header-section-number">2.5.3</span> Maximization under Constraints</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content quarto-banner-title-block column-page-right" id="quarto-document-content">
+
+
+
+
+
+<style>
+figcaption {
+  margin: auto;
+  text-align: center;
+}
+</style>
+<!-- CHAPTER ********************************************************** -->
+<section id="sec-ch:preface" class="level1 unnumbered">
+<h1 class="unnumbered">Preface</h1>
+<!-- CHAPTER ********************************************************** -->
+<p>This document contains a brief listing of useful math, skipping proofs, and only containing very few examples. We embed graphs made with the graphing calculator available at <a href="https://desmos.com" target="_blank">desmos.com</a>. We believe Desmos design is so intuitive, that almost no further instructions are needed, curiosity gets you a long way. It may nonetheless be a good idea to first consult the Desmos <a href="https://help.desmos.com/hc/en-us/articles/4406040715149-Getting-Started-Desmos-Graphing-Calculator" target="_blank">Getting Started</a> page to get acquainted with the way the calculator works and renders functions and other objects.</p>
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+<div class="grid">
+<div class="g-col-6">
+<p><a href="#fig-windmap" class="quarto-xref">Figure&nbsp;1</a> shows a three-dimensional object in a two-dimensional graph. It depicts a meteorological wind map where the horizontal and vertical coordinates relate to geographical location, and the third dimension is wind force, indicated by color coding. The colors range from light green to dark orange with increasing wind force. The colored areas, representing areas of different wind force, are demarcated by contour lines. Along such a line the wind force is constant; moving away from a line leads to areas of higher or lower wind force.</p>
+</div>
+<div class="g-col-6">
+<!-- Figure:........................................................... -->
+<div id="fig-windmap" class="lightbox quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-windmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Windmap Showing Storm Making Landfall
+</figcaption>
+<div aria-describedby="fig-windmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/windmap.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Windmap Showing Storm Making Landfall"><img src="images/windmap.png" class="img-fluid figure-img"></a>
+</div>
+</figure>
+</div>
+<!-- End of Figure..................................................... -->
+</div>
+</div>
+<!-- End Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+<div class="grid">
+<div class="g-col-6">
+<p><a href="#fig-desmos" class="quarto-xref">Figure&nbsp;2</a> shows a Desmos graph that could be used in a stylized model for <a href="#fig-windmap" class="quarto-xref">Figure&nbsp;1</a>.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Movable Point">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Movable Point
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We offer users a way to easily manipulate graphs, either directly on the graph when clicking a ‘movable point’ (a visibly large dot), or by way of using parameter sliders and toggles.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Edit Graph">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Edit Graph
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>By clicking on “edit graph on desmos” in the lower-right corner of the graph, users can edit the equation and hence explore how the shape of the mathematical function behaves when the underlying equation is changed, or how rendering (colors, line thickness, axes numbers and labels, etc.) can be altered.</p>
+</div>
+</div>
+</div>
+<div class="g-col-6">
+<!-- Figure:........................................................... -->
+<div id="fig-desmos" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-desmos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Modeling Using Desmos Graphs
+</figcaption>
+<div aria-describedby="fig-desmos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe src="https://edu.nl/jkmmy" width="500" height="500" style="border: 1px solid #ccc"></iframe>
+</div>
+</figure>
+</div>
+<!-- End of Figure..................................................... -->
+</div>
+</div>
+<!-- End Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+<!-- CHAPTER ********************************************************** -->
+</section>
+<section id="sec-ch:notation" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Notation</h1>
+<!-- CHAPTER ********************************************************** -->
+<!-- SECTION ********************************************************** -->
+<section id="sec-sn:greek" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="sec-sn:greek"><span class="header-section-number">1.1</span> List of Greek Letters</h2>
+<!-- SECTION ********************************************************** -->
+<p>For reference, <a href="#tbl-tb:greek" class="quarto-xref">Table&nbsp;1.1</a> gives an overview of letters from the Greek alphabet along with Latin correspondence. Such letters may sometimes be used in formal models representing parameters or other symbols.</p>
+<div id="tbl-tb:greek" class="striped hover quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-tb:greek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1.1: Greek Letters
+</figcaption>
+<div aria-describedby="tbl-tb:greek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table-striped table-hover caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\alpha\)</span></td>
+<td></td>
+<td>A</td>
+<td><code>alpha</code></td>
+<td>a</td>
+<td></td>
+<td><span class="math inline">\(\nu\)</span></td>
+<td></td>
+<td>N</td>
+<td><code>nu</code></td>
+<td>n</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\beta\)</span></td>
+<td></td>
+<td>B</td>
+<td><code>beta</code></td>
+<td>b,v</td>
+<td></td>
+<td><span class="math inline">\(\xi\)</span></td>
+<td></td>
+<td><span class="math inline">\(\Xi\)</span></td>
+<td><code>xi</code></td>
+<td>x,ks</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\gamma\)</span></td>
+<td></td>
+<td><span class="math inline">\(\Gamma\)</span></td>
+<td><code>gamma</code></td>
+<td>g,y</td>
+<td></td>
+<td>o</td>
+<td></td>
+<td>O</td>
+<td><code>omicron</code></td>
+<td>o</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\delta\)</span></td>
+<td></td>
+<td><span class="math inline">\(\Delta\)</span></td>
+<td><code>delta</code></td>
+<td>d</td>
+<td></td>
+<td><span class="math inline">\(\pi\)</span></td>
+<td><span class="math inline">\(\varpi\)</span></td>
+<td><span class="math inline">\(\Pi\)</span></td>
+<td><code>pi</code></td>
+<td>p</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\epsilon\)</span></td>
+<td><span class="math inline">\(\varepsilon\)</span></td>
+<td>E</td>
+<td><code>epsilon</code></td>
+<td>e</td>
+<td></td>
+<td><span class="math inline">\(\rho\)</span></td>
+<td><span class="math inline">\(\varrho\)</span></td>
+<td>P</td>
+<td><code>rho</code></td>
+<td>r</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\zeta\)</span></td>
+<td></td>
+<td>Z</td>
+<td><code>zeta</code></td>
+<td>z</td>
+<td></td>
+<td><span class="math inline">\(\sigma\)</span></td>
+<td><span class="math inline">\(\varsigma\)</span></td>
+<td><span class="math inline">\(\Sigma\)</span></td>
+<td><code>sigma</code></td>
+<td>s</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\eta\)</span></td>
+<td></td>
+<td>H</td>
+<td><code>eta</code></td>
+<td>i</td>
+<td></td>
+<td><span class="math inline">\(\tau\)</span></td>
+<td></td>
+<td>T</td>
+<td><code>tau</code></td>
+<td>t</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\theta\)</span></td>
+<td><span class="math inline">\(\vartheta\)</span></td>
+<td><span class="math inline">\(\Theta\)</span></td>
+<td><code>theta</code></td>
+<td>th</td>
+<td></td>
+<td><span class="math inline">\(\upsilon\)</span></td>
+<td></td>
+<td><span class="math inline">\(\Upsilon\)</span></td>
+<td><code>upsilon</code></td>
+<td>y,v</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\iota\)</span></td>
+<td></td>
+<td>I</td>
+<td><code>iota</code></td>
+<td>i,j</td>
+<td></td>
+<td><span class="math inline">\(\phi\)</span></td>
+<td><span class="math inline">\(\varphi\)</span></td>
+<td><span class="math inline">\(\Phi\)</span></td>
+<td><code>phi</code></td>
+<td>f</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\kappa\)</span></td>
+<td></td>
+<td>K</td>
+<td><code>kappa</code></td>
+<td>k</td>
+<td></td>
+<td><span class="math inline">\(\chi\)</span></td>
+<td></td>
+<td>X</td>
+<td><code>chi</code></td>
+<td>ch</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\lambda\)</span></td>
+<td></td>
+<td><span class="math inline">\(\Lambda\)</span></td>
+<td><code>lambda</code></td>
+<td>l</td>
+<td></td>
+<td><span class="math inline">\(\psi\)</span></td>
+<td></td>
+<td><span class="math inline">\(\Psi\)</span></td>
+<td><code>psi</code></td>
+<td>ps</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mu\)</span></td>
+<td></td>
+<td>M</td>
+<td><code>mu</code></td>
+<td>m</td>
+<td></td>
+<td><span class="math inline">\(\omega\)</span></td>
+<td></td>
+<td><span class="math inline">\(\Omega\)</span></td>
+<td><code>omega</code></td>
+<td>o</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<!-- SECTION ********************************************************** -->
+</section>
+<section id="notation-and-conventions-in-economics" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="notation-and-conventions-in-economics"><span class="header-section-number">1.2</span> Notation and Conventions in Economics</h2>
+<!-- SECTION ********************************************************** -->
+<p>There is no such thing as standard notation in economics. There are no uniformly accepted notational conventions on what to call certain economic magnitudes. Hence, always define your symbols. One convention is to flip around the graph of a demand or supply function, which you need to get used to. More on this in <a href="#sec-ssn:graphdemand" class="quarto-xref">Section&nbsp;2.2.4</a>.</p>
+<!-- CHAPTER ********************************************************** -->
+</section>
+</section>
+<section id="sec-ch:math" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Math Review</h1>
+<!-- CHAPTER ********************************************************** -->
+<!-- SECTION ********************************************************** -->
+<section id="sec-sn:basics" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="sec-sn:basics"><span class="header-section-number">2.1</span> Basics of Algebra and Geometry</h2>
+<!-- SECTION ********************************************************** -->
+<!-- SUBSECTION ------------------------------------------------------- -->
+<section id="sec-ssn:ops" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="sec-ssn:ops"><span class="header-section-number">2.1.1</span> Basic Operators</h3>
+<!-- SUBSECTION ------------------------------------------------------- -->
+<p>Operators are some of the most basic elements of algebra. In the expression <span class="math inline">\(1+2\)</span>, the operator is <span class="math inline">\(+\)</span>. Anyone knows how to calculate with elementary arithmetic operators ‘<span class="math inline">\(+\)</span>’, ‘<span class="math inline">\(-\)</span>’, ‘<span class="math inline">\(\times\)</span>’, and ‘<span class="math inline">\(/\)</span>’ on real numbers. To this short list, we may want to add raising a number to a power (exponentiation). In more lengthy expressions, such as <span class="math display">\[-7 \times 3^2 + 2^{3+2}/2 \]</span> there are many operators and we need to know where to start. There are simple rules that relate to <em>operator precedence</em> telling us what has priority over what.</p>
+<div id="nte-PEMDAS" class="callout callout-style-default callout-note no-icon callout-titled" title="PEMDAS">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Remark&nbsp;2.1: PEMDAS
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There is a simple mnemonic that helps us keep track of the order: PEMDAS, for parentheses, exponentiation, multiplication, division, addition and subtraction (or: Please excuse my dear Aunt Sally). Keep in mind that multiplication and division are of the same order of precedence, as are addition and subtraction.</p>
+</div>
+</div>
+<!-- SUBSUBSECTION ---------------------------------------------------- -->
+<section id="sec-sssn:sum" class="level4" data-number="2.1.1.1">
+<h4 data-number="2.1.1.1" class="anchored" data-anchor-id="sec-sssn:sum"><span class="header-section-number">2.1.1.1</span> Sum Operator</h4>
+<!-- SUBSUBSECTION ---------------------------------------------------- -->
+<p>Sum operators are being used frequently, so it is a good idea to get used to them. The sum operator <span class="math inline">\(\sum\)</span> is nothing else than a ‘<span class="math inline">\(+\)</span>’ for many, indexed, elements.</p>
+<div id="cau-sum" class="callout callout-style-default callout-caution no-icon callout-titled" title="Sum Operator">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example&nbsp;2.1: Sum Operator
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Instead of writing the sum <span class="math inline">\(s\)</span> as <span class="math display">\[s = 3+6+9\]</span> we can equivalently use the notation <span class="math display">\[s = \sum_{i=1}^3 (3i).\]</span></p>
+<p>Since <span class="math inline">\(3\)</span> is a common multiplier, we can pull it out of the sum and write equivalently <span class="math display">\[s = 3\sum_{i=1}^3 i.\]</span></p>
+</div>
+</div>
+<p>The index counter <span class="math inline">\(i\)</span> is just a running number. It runs from a starting value to a terminal value, both indicated below and above the operator. <span class="math display">\[
+\sum_{i=1}^n a_i=
+\sum_{j=1}^n a_j=
+\sum_{k=1}^n a_k=
+\sum_{\mathit{jellyfish}=1}^{n} a_{\mathit{jellyfish}}.
+\]</span> Finally, it is a matter of taste to write <span class="math inline">\(\sum_{i=1}^{n} a_i\)</span> or <span class="math inline">\(\sum_{i=1}^{i=n} a_i\)</span>.</p>
+<p>If <span class="math inline">\(n\)</span> is not given, the convention is that the index refers to all possible elements (which depends on context).</p>
+<p>Everything that is not indexed inside the sum can be taken outside the sum. Note that <span class="math inline">\(c_j\)</span> is just a constant; its index <span class="math inline">\(j\)</span> is irrelevant, but we put it there to make sure you understand that <span class="math inline">\(c_j\)</span> does not vary with <span class="math inline">\(k\)</span>.</p>
+<div id="nte-index" class="callout callout-style-default callout-note no-icon callout-titled" title="Index Limits">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Remark&nbsp;2.2: Index Limits
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Confusion might arise when omitting index limits. Consider <span class="math inline">\(\sum_{i=1}^n a^{i-1} = \sum_{i=0}^{n-1} a^{i}\)</span>. This is not necessarily equivalent to <span class="math inline">\(\sum_i a^i\)</span> where limits are omitted, so some care is needed.</p>
+</div>
+</div>
+<!-- SUBSUBSECTION ---------------------------------------------------- -->
+</section>
+<section id="sec-sssn:diff" class="level4" data-number="2.1.1.2">
+<h4 data-number="2.1.1.2" class="anchored" data-anchor-id="sec-sssn:diff"><span class="header-section-number">2.1.1.2</span> Difference Operator</h4>
+<!-- SUBSUBSECTION ---------------------------------------------------- -->
+<p><span class="math inline">\(\Delta\)</span> is an operator that signifies the difference between two values of a variable. If we write <span class="math inline">\(\Delta x\)</span> we select two values of <span class="math inline">\(x\)</span>, <span class="math inline">\(x_0\)</span> and <span class="math inline">\(x_1\)</span>, and define <span class="math display">\[\Delta x = x_1-x_0.\]</span> For this notation to be meaningful, there needs to be an understanding what the index means. <span class="math inline">\(x\)</span> may be a series in a certain order, say, a time series with values <span class="math inline">\(x_{1}, x_{2}, \ldots, x_{t}, \ldots, x_{T}\)</span>, then <span class="math inline">\(\Delta_t x = x_{t}-x_{t-1}\)</span> is the change in <span class="math inline">\(x\)</span> over time between two measurements at <span class="math inline">\(t-1\)</span> and <span class="math inline">\(t\)</span>. <span class="math inline">\(\Delta\)</span> comes in handy for differentiating functions, on which more below (<a href="#sec-sn:1stder" class="quarto-xref">Section&nbsp;2.4.2</a>).</p>
+<!-- SUBSUBSECTION ---------------------------------------------------- -->
+</section>
+<section id="sec-sssn:prod" class="level4" data-number="2.1.1.3">
+<h4 data-number="2.1.1.3" class="anchored" data-anchor-id="sec-sssn:prod"><span class="header-section-number">2.1.1.3</span> Product Operator</h4>
+<!-- SUBSUBSECTION ---------------------------------------------------- -->
+<p>The product operator is denoted with the the symbol <span class="math inline">\(\prod\)</span> and defined through <span class="math display">\[\prod_{i=1}^n a_i = a_1 \cdot a_2  \cdot a_3  \cdot a_4 \cdots a_n.\]</span></p>
+<!-- SUBSUBSECTION ---------------------------------------------------- -->
+</section>
+<section id="sec-sssn:power" class="level4" data-number="2.1.1.4">
+<h4 data-number="2.1.1.4" class="anchored" data-anchor-id="sec-sssn:power"><span class="header-section-number">2.1.1.4</span> Exponentiation: Power Operator</h4>
+<!-- SUBSUBSECTION ---------------------------------------------------- -->
+<p>In the special case that all terms <span class="math inline">\(a_i\)</span> are identical, <span class="math inline">\(a_i=a\)</span>, we can write <span class="math display">\[\prod_{i=1}^n a = a^n.\]</span> This reads ‘<span class="math inline">\(a\)</span> raised to the power of <span class="math inline">\(n\)</span>’. Here, <span class="math inline">\(a\)</span> is the base, and <span class="math inline">\(n\)</span> is the exponent. Note that on calculators and computers the hat symbol is used to indicate exponentiation, as in <code>a^n</code>, but in written work this notation is unusual.</p>
+<p>Special cases obtain for <span class="math inline">\(n=0\)</span>, <span class="math inline">\(n=1\)</span>, and <span class="math inline">\(n=-1\)</span> <span class="math display">\[a^0 = 1;\qquad a^1 = a;\qquad a^{-1} = \frac{1}{a}.\]</span> Further, we have for <span class="math inline">\(a=0\)</span> and <span class="math inline">\(a=1\)</span> the definitions <span class="math display">\[0^n = 0;\qquad 1^n = 1.\]</span></p>
+<p><span class="math inline">\(n\)</span> is often an integer, but it need not be. Some of the useful rules to remember when dealing with exponentiation are:</p>
+<ul>
+<li>summation of exponents with common base: <span class="math display">\[a^{m+n} = a^m \cdot a^n\]</span></li>
+<li>multiplication of base with common exponent <span class="math display">\[a^n \cdot b^n = (a\cdot b)^n\]</span></li>
+<li>power to the power: multiplication of powers <span class="math display">\[(a^n)^m = a^{n\cdot m}.\]</span></li>
+</ul>
+<p>These rules, combined with the special cases from above, now give rise to a whole range of possibilities. For instance,</p>
+<ul>
+<li><span class="math display">\[a^{-n} = \frac{1}{a^n}\]</span></li>
+<li><span class="math display">\[a^{m-n} = \frac{a^m}{a^n}\]</span></li>
+<li><span class="math display">\[a^{n}a^{-n} = 1.\]</span></li>
+</ul>
+<p>Since <span class="math inline">\(n\)</span> (or <span class="math inline">\(m\)</span>) can be a (positive or negative) fraction, we can use the power notation for roots, as in <span class="math display">\[a^{\frac{1}{2}} = \sqrt{a};\qquad
+a^{-\frac{1}{3}} = \frac{1}{\sqrt[3]{a}};\quad \mbox{and}\quad
+a^{\frac{m}{n}} = \sqrt[n]{a^m}.\]</span></p>
+<!-- SUBSECTION ------------------------------------------------------- -->
+</section>
+</section>
+<section id="sec-ssn:parentheses" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="sec-ssn:parentheses"><span class="header-section-number">2.1.2</span> Expanding Brackets and Binomial Expressions</h3>
+<!-- SUBSECTION ------------------------------------------------------- -->
+<p>Many algebraic expressions involve brackets. Just stick to the basic arithmetic rules to multiply out every term outside of a bracket with all terms inside. This also applies to nested and multiple brackets.</p>
+<p>Specific cases of use of parentheses are involved in binomial equations. Here are three very popular ones for two variables <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> involving square terms.</p>
+<p><span class="math display">\[\begin{eqnarray}
+\label{eq:bin1}
+(a+ b)^2&amp;=&amp;a^2+ 2ab+b^2 \\
+\label{eq:bin2}
+(a-b)^2&amp;=&amp;a^2-2ab+b^2 \\
+\label{eq:bin3}
+(a^2-b^2)&amp;=&amp;(a+b)\cdot(a-b)
+\end{eqnarray}\]</span></p>
+<!-- SUBSECTION ------------------------------------------------------- -->
+</section>
+<section id="sec-ssn:geo" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="sec-ssn:geo"><span class="header-section-number">2.1.3</span> Geometry</h3>
+<!-- SUBSECTION ------------------------------------------------------- -->
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+<div class="grid">
+<div class="g-col-6">
+<p>Simple geometry is needed to calculate areas in diagrams, and the most important shapes are angular (tri- or rectangular). A convenient shape to understand is that of a trapezoid (a convex shape with four sides, among which two parallel ones), because it covers some special cases. Figure <a href="#fig-trapezoid" class="quarto-xref">Figure&nbsp;2.1</a> shows such a shape. Elementary algebra is enough for calculating the area of a trapezoid. It is easily obtained as <span class="math display">\[A = \frac{1}{2} [b_1+b_2] \times h\]</span> where <span class="math inline">\(h\)</span> is height and <span class="math inline">\(b_1\)</span> and <span class="math inline">\(b_2\)</span> are the upper and lower bases.</p>
+</div>
+<div class="g-col-6">
+<div id="fig-trapezoid" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-trapezoid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.1: Trapezoid
+</figcaption>
+<div aria-describedby="fig-trapezoid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe src="https://www.desmos.com/geometry/hftqn4w8ce?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder="0"></iframe>
+
+</div>
+</figure>
+</div>
+</div>
+</div>
+<!-- End Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+<p>What is important is to measure height <span class="math inline">\(h\)</span> as orthogonal (90<span class="math inline">\(^\circ\)</span>) to the bases <span class="math inline">\(b\)</span>. The formula multiplies the height with the <em>average</em> base length. There are several special cases:</p>
+<ul>
+<li>The parallelogram is a trapezoid with two pairs of parallel sides and has <span class="math inline">\(b_1=b_2=b\)</span>, so the area is <span class="math inline">\(A = b \times h\)</span>.</li>
+<li>The rectangle is a rectangular parallelogram with area <span class="math inline">\(A = b \times h\)</span>.</li>
+<li>The square is a rectangle with <span class="math inline">\(b=h\)</span> and area <span class="math inline">\(A = h^2\)</span>.</li>
+<li>The triangle has <span class="math inline">\(b_1=0\)</span> and <span class="math inline">\(b_2=b\)</span>, yielding <span class="math inline">\(A = \frac{1}{2}b\times h\)</span>.</li>
+</ul>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Play!">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Play!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Press the downward-pointing <span class="math inline">\(\gg\)</span> symbol to get the graph into full view. Then, slide dots C and D and check the above (do the calculation)!</p>
+</div>
+</div>
+<p>One application where economists encounter areas in geometric figures concerns calculating welfare loss triangles, when supply and demand curve are linear. Both demand and supply are quantities as functions of prices.</p>
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+<div class="grid">
+<div class="g-col-6">
+<div id="cau-dwl" class="callout callout-style-default callout-caution no-icon callout-titled" title="Calculating the Welfare Loss Triangle.">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example&nbsp;2.2: Calculating the Welfare Loss Triangle.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Consider demand and supply schedules, <span class="math display">\[\begin{eqnarray*}
+Q = D(p) &amp;=&amp; 7.5 - p\\
+Q = S(p) &amp;=&amp; -0.5+p.
+\end{eqnarray*}\]</span> The intersection of supply and demand defines the equilibrium, which we can calcuate as <span class="math display">\[Q^\star = 3.5  \qquad p^\star = 4.\]</span> Suppose, that due to some market failure, the actual quantity traded on this market is only <span class="math inline">\(Q_0 = 1\)</span>. Then, we can calculate the welfare loss as a triangle <span class="math display">\[\frac{1}{2} \cdot \underbrace{(Q^\star-Q_0)}_{b} \times \underbrace{(p_0 - p_0')}_{h} = 0.5 \cdot 2.5 \cdot 5 = 6.25.\]</span> Hence, the base is vertical. This is illustrated in Figure <a href="#fig-dwl" class="quarto-xref">Figure&nbsp;2.2</a>. Shift the colored movable points for a new set of supply/demand curves to practice. Count the squares to check.</p>
+</div>
+</div>
+</div>
+<div class="g-col-6">
+<div id="fig-dwl" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-dwl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.2: Welfare Loss Triangle
+</figcaption>
+<div aria-describedby="fig-dwl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe src="https://www.desmos.com/calculator/jw2e51dtm9?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder="0"></iframe>
+</div>
+</figure>
+</div>
+</div>
+</div>
+<!-- End Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+<!-- SECTION ********************************************************** -->
+</section>
+</section>
+<section id="sec-sn:functionsone" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="sec-sn:functionsone"><span class="header-section-number">2.2</span> Functions of One Variable</h2>
+<!-- SECTION ********************************************************** -->
+<!-- SUBSECTION ------------------------------------------------------- -->
+<section id="sec-ssn:funeq" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="sec-ssn:funeq"><span class="header-section-number">2.2.1</span> Functions and Equations</h3>
+<!-- SUBSECTION ------------------------------------------------------- -->
+<p>We describe the relation between two quantities <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> by a function <span class="math inline">\(f\)</span> that takes <span class="math inline">\(x\)</span> as input and <span class="math inline">\(y\)</span> as output by the equation <span class="math display">\[y=f(x).\]</span> <span class="math inline">\(x\)</span> is sometimes referred to as ‘independent variable’ and <span class="math inline">\(y\)</span> as ‘dependent variable’ as <span class="math inline">\(y\)</span> depends through <span class="math inline">\(f\)</span> on <span class="math inline">\(x\)</span>.</p>
+<p><span class="math inline">\(f(\cdot)\)</span> is often specified using an algebraic expression, for instance, <span class="math display">\[f(x) = \sqrt{x}.\]</span> The set of values for <span class="math inline">\(x\)</span> is the domain, the set of values for <span class="math inline">\(y\)</span> is the range.</p>
+<p>Note: <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are placeholders, we could use other symbols instead. Likewise, economists use a lot of functions, very few of them are denoted <span class="math inline">\(f()\)</span>.</p>
+<!-- SUBSECTION ------------------------------------------------------- -->
+</section>
+<section id="sec-ssn:graphs" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="sec-ssn:graphs"><span class="header-section-number">2.2.2</span> Graphs of Functions</h3>
+<!-- SUBSECTION ------------------------------------------------------- -->
+<p>The graph of <span class="math inline">\(y=f(x)\)</span> can be depicted in a (two-dimensional) Cartesian coordinate system with values of <span class="math inline">\(x\)</span> on the horizontal values of <span class="math inline">\(y\)</span> on the vertical axis. To graph it exactly and to scale, we need to specify the exact algebraic expression for <span class="math inline">\(f\)</span> and all its parameter values.</p>
+<div id="cau-lindemand" class="callout callout-style-default callout-caution no-icon callout-titled" title="Linear Demand Curve.">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example&nbsp;2.3: Linear Demand Curve.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>An important functional relation in economics is that of a demand equation or demand curve, that expresses quantity <span class="math inline">\(Q\)</span> as a function <span class="math inline">\(D\)</span> of price <span class="math inline">\(p\)</span> <span class="math display">\[\begin{equation}
+\label{eq:dofp}
+Q = D(p).
+\end{equation}\]</span> The notation <span class="math inline">\(Q = D(p)\)</span> is generic. Without a functional <em>specification</em>, we cannot possibly use the function in calculations nor can we plot it exactly and to scale on paper or on a computer.</p>
+<p>If we specify <span class="math inline">\(D()\)</span> as <span class="math display">\[\begin{equation}
+\label{ex:slope}
+Q = D(p) = 10-5p,
+\end{equation}\]</span> we can plot <span class="math inline">\(\eqref{ex:slope}\)</span> in a Cartesian coordinate system with <span class="math inline">\(p\)</span> and <span class="math inline">\(Q\)</span> on the axes. <span class="math inline">\(\eqref{ex:slope}\)</span> is <em>linear</em> in <span class="math inline">\(p\)</span>. The graph of a linear function is a straight line, characterized by two parameters, an intercept and a slope. In <span class="math inline">\(\eqref{ex:slope}\)</span> the intercept is 10 (when <span class="math inline">\(p=0\)</span>, that is, where it cuts the <span class="math inline">\(Q\)</span> axis), the slope is <span class="math inline">\(-5\)</span>. In <a href="#cau-demecon" class="quarto-xref">Example&nbsp;2.5</a> below, we discuss the graph and show it in <a href="#fig-demecon" class="quarto-xref">Figure&nbsp;2.5</a>.</p>
+</div>
+</div>
+<p>Often, we are not interested in special cases, but want to illustrate a more general point. So, instead of exactly specifying a functional form, we may instead characterize the function in general terms. When economic theory derives demand functions from first principles, one may try to characterize the function in terms of concepts such as continuity, monotonicity, differentiability, convexity, etc.</p>
+<!-- SUBSECTION ------------------------------------------------------- -->
+</section>
+<section id="sec-ssn:cont" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="sec-ssn:cont"><span class="header-section-number">2.2.3</span> Continuity and Monotonicity</h3>
+<!-- SUBSECTION ------------------------------------------------------- -->
+<p>Loosely speaking, a function is continuous if it is smooth at all elements of its domain in the sense that a small movement at one element of the domain does not cause a big jump in the range. If the function’s domain is discontinuous, the function is also not continuous.</p>
+<p>If a function is differentiable (everywhere), it is (globally) continuous.</p>
+<div id="cau-cont" class="callout callout-style-default callout-caution no-icon callout-titled" title="Domain Discontinuity">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example&nbsp;2.4: Domain Discontinuity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+<div class="grid">
+<div class="g-col-6">
+<p><a href="#fig-cont" class="quarto-xref">Figure&nbsp;2.3</a> shows an example of the non-continuous function</p>
+<p><span class="math display">\[ f\left(x\right)=\frac{\left(x-1\right)^{2}}{\left(x-1\right)}. \]</span></p>
+<p>To see this clearly, slide the green dot slowly along the horizontal axis to find that the function value is <em>undefined</em> when <span class="math inline">\(x_0=1\)</span>, so it has a hole at that point.</p>
+<p>Expanding the square term using <span class="math inline">\(\eqref{eq:bin3}\)</span> gives</p>
+<p><span class="math display">\[ f\left(x\right)=\frac{\left(x+1\right)\left(x-1\right)}{\left(x-1\right)} \]</span></p>
+<p>which suggests that the term <span class="math inline">\(\left(x-1\right)\)</span> can be removed. Then, the discontinuity is said to be removable. What remains is <span class="math inline">\(f(x)=x+1\)</span> which is easy to spot as being linear.</p>
+</div>
+<div class="g-col-6">
+<!-- Figure:........................................................... -->
+<div id="fig-cont" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cont-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.3: Discontinuous Function
+</figcaption>
+<div aria-describedby="fig-cont-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe src="https://www.desmos.com/calculator/f64kzvcs9q?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder="0"></iframe>
+</div>
+</figure>
+</div>
+<!-- End of Figure..................................................... -->
+</div>
+</div>
+<!-- END Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+</div>
+</div>
+<p>A function is monotonic if it is either entirely nonincreasing or nondecreasing.</p>
+<div id="tip-mono" class="callout callout-style-default callout-tip no-icon callout-titled" title="Monotonicity?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise&nbsp;2.1: Monotonicity?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+<div class="grid">
+<div class="g-col-6">
+<p><a href="#fig-mono" class="quarto-xref">Figure&nbsp;2.4</a> depicts function</p>
+<p><span class="math display">\[f(x)=x^a,\qquad a=0,1,\ldots\]</span></p>
+<p>You can slide the green dot and try to answer for which values of <span class="math inline">\(a\)</span> the function is</p>
+<ul>
+<li>non-monotonic</li>
+<li>strictly monotonic</li>
+<li>weakly monotonic (i.e., not strictly monotonic but not non-monotonic)</li>
+</ul>
+</div>
+<div class="g-col-6">
+<!-- Figure:........................................................... -->
+<div id="fig-mono" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-mono-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.4: Monotonic Function?
+</figcaption>
+<div aria-describedby="fig-mono-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe src="https://www.desmos.com/calculator/vuwxkq7eyn?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder="0"></iframe>
+</div>
+</figure>
+</div>
+<!-- End of Figure..................................................... -->
+</div>
+</div>
+<!-- END Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+</div>
+</div>
+<p>There are important links between continuity and monotonicity with differentiability, on which more in <a href="#sec-sn:1stder" class="quarto-xref">Section&nbsp;2.4.2</a>. For instance, continuity is a necessary but not sufficient condition for differentiability. A function is monotonic if its first derivative (which need not be continuous) does not change sign.</p>
+<!-- SUBSECTION ------------------------------------------------------- -->
+</section>
+<section id="sec-ssn:graphdemand" class="level3" data-number="2.2.4">
+<h3 data-number="2.2.4" class="anchored" data-anchor-id="sec-ssn:graphdemand"><span class="header-section-number">2.2.4</span> Economic Application: Graph of Demand Function</h3>
+<!-- SUBSECTION ------------------------------------------------------- -->
+<p>What is unusual in economics is the ‘inversion’ of the graph of a demand function. Demand is typically written as quantity <span class="math inline">\(Q\)</span> being a function <span class="math inline">\(D\)</span> of price <span class="math inline">\(p\)</span>: <span class="math inline">\(Q=D(p)\)</span>. Its graph is ‘inverted’ relative to what most people are used to (domain (origin <span class="math inline">\(p\)</span>) is on the vertical axis, range (target <span class="math inline">\(Q\)</span>) on the horizontal axis).</p>
+<div id="cau-demecon" class="callout callout-style-default callout-caution no-icon callout-titled" title="Slope of a linear demand function.">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example&nbsp;2.5: Slope of a linear demand function.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+<div class="grid">
+<div class="g-col-6">
+<p>Recall <a href="#cau-lindemand" class="quarto-xref">Example&nbsp;2.3</a> where it said that the slope in <span class="math inline">\(\eqref{ex:slope}\)</span> was ‘<span class="math inline">\(-5\)</span>’. This is a mathematical formulation. A slope of <span class="math inline">\(-5\)</span>, when the same units are used on both axes, is pretty steep. If you now plot the graph as economists would (<span class="math inline">\(p\)</span> on the vertical axis, <span class="math inline">\(Q\)</span> on the horizontal one), you’ll notice that it looks pretty flat. The reason is that, as it were, you’d flip the function around before drawing the graph: <span class="math display">\[p = 2 - \frac{1}{5} Q.\]</span> This can cause a lot of confusion if you are not used to it.</p>
+</div>
+<div class="g-col-6">
+<div id="fig-demecon" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-demecon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.5: Demand Function, Drawn the Economist’s Way
+</figcaption>
+<div aria-describedby="fig-demecon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe src="https://www.desmos.com/calculator/nkfnyulndm?embed" width="500" height="250" style="border: 1px solid #ccc" frameborder="0"></iframe>
+</div>
+</figure>
+</div>
+</div>
+</div>
+<!-- End Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+</div>
+</div>
+<p>For many model applications, it is necessary to first derive the <em>inverse demand function</em> and express price as a function of quantity, <span class="math inline">\(p = P(Q).\)</span> For the linear demand function <span class="math inline">\(D(p) = a - bp\)</span>, the inverse demand function is <span class="math display">\[P(Q) = \frac{a}{b}-\frac{1}{b}\cdot Q.\]</span> Since <span class="math inline">\(Q\)</span> (domain) stays on the horizontal axis, and <span class="math inline">\(p\)</span> (range) stays on the vertical axis, the graph of the demand function and of the inverse demand function <em>coincide</em>.</p>
+<div id="nte-absc" class="callout callout-style-default callout-note no-icon callout-titled" title="Axes labeling">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Remark&nbsp;2.3: Axes labeling
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In context of an economic model it may perhaps be better to avoid referring to <span class="math inline">\(x\)</span>-axis and <span class="math inline">\(y\)</span>-axis, especially when the symbols <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are not defined in the economic model. For instance, for a demand curve we could refer to the <span class="math inline">\(p\)</span>- and the <span class="math inline">\(Q\)</span>-axes if these denote price and quantity as in (<span class="math inline">\(\ref{ex:slope}\)</span>).</p>
+<p>More confusingly, the economic model may have a symbol <span class="math inline">\(y\)</span> in it and the graph may depict that quantity on the horizontal axis. Referring to the vertical axis as <span class="math inline">\(y\)</span>-axis is then at least ambiguous.</p>
+<p>Sloppy work often omits relevant labels on axes and objects in a graph. Many things can go wrong here, in particular when there is no strong convention on how to draw the picture. Always properly label all axes and all elements of an economic graph.</p>
+</div>
+</div>
+<!-- SUBSECTION ------------------------------------------------------- -->
+</section>
+<section id="sec-sn:conc" class="level3" data-number="2.2.5">
+<h3 data-number="2.2.5" class="anchored" data-anchor-id="sec-sn:conc"><span class="header-section-number">2.2.5</span> Convexity and Concavity</h3>
+<!-- SUBSECTION ------------------------------------------------------- -->
+<p>Consider a function <span class="math inline">\(f(x)\)</span> and two values of <span class="math inline">\(x\)</span>, <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>. Then take some number <span class="math inline">\(\lambda \in [0, 1]\)</span> (e.g., <span class="math inline">\(\lambda=0.5\)</span>). Then calculate the mixture or weighted average <span class="math inline">\(\lambda x_1 + (1-\lambda) x_2\)</span>. We say that <span class="math inline">\(f\)</span> is convex if <span class="math display">\[f(\lambda x_1 + (1-\lambda) x_2) \le \lambda f(x_1) + (1-\lambda) f(x_2).\]</span> <span class="math inline">\(f\)</span> is <em>strictly</em> convex if <span class="math inline">\(&lt;\)</span> applies instead of <span class="math inline">\(\le\)</span>. <span class="math inline">\(f\)</span> is concave if <span class="math display">\[f(\lambda x_1 + (1-\lambda) x_2) \ge \lambda f(x_1) + (1-\lambda) f(x_2).\]</span> Note that <span class="math inline">\(f\)</span> is convex if <span class="math inline">\(-f\)</span> is concave (and reverse).</p>
+<p>Graphically, if we take two points on the function and connect them with a straight line segment,</p>
+<ul>
+<li>all points in between on a strictly concave curve lie above the straight line segment</li>
+<li>all points in between on a strictly convex curve lie below the straight line segment.</li>
+</ul>
+<div id="cau-conc" class="callout callout-style-default callout-caution no-icon callout-titled" title="Concavity Illustrated">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example&nbsp;2.6: Concavity Illustrated
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+<div class="grid">
+<div class="g-col-6">
+<p><a href="#fig-conc" class="quarto-xref">Figure&nbsp;2.6</a> shows the example of graph of a concave function <span class="math display">\[f(x)=x^a\]</span> for <span class="math inline">\(a=0.5.\)</span> The figure shows two <span class="math inline">\(x\)</span> values <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> and four colored hollow points. The blue points are connected by a straight line. The orange point is on that connecting line and determined by the mixture parameter <span class="math inline">\(\lambda.\)</span> Its <span class="math inline">\(y\)</span>-value is <span class="math inline">\(\lambda f(x_1) + (1-\lambda) f(x_2)\)</span>. The green point is on the function, its <span class="math inline">\(y\)</span>-value is <span class="math inline">\(f(\lambda x_1 + (1-\lambda) x_2)\)</span>. Hence, the green point lies above the orange point at all values of <span class="math inline">\(\lambda\)</span>.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Play!">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Play!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Shift <span class="math inline">\(\lambda\)</span> on the horizontal axis and verify that the shown function is indeed strictly concave for all values of <span class="math inline">\(\lambda\)</span>. Click on “edit graph on Desmos” to explore at what parameter value <span class="math inline">\(a\)</span> of the shown function, the graph is strictly convex. What borderline cases are there?</p>
+</div>
+</div>
+</div>
+<div class="g-col-6">
+<div id="fig-conc" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-conc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.6: Exploring Concavity and Convexity
+</figcaption>
+<div aria-describedby="fig-conc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe src="https://www.desmos.com/calculator/eyyn7llcoj?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder="0"></iframe>
+</div>
+</figure>
+</div>
+</div>
+</div>
+<!-- END Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+</div>
+</div>
+<!-- SUBSECTION ------------------------------------------------------- -->
+</section>
+<section id="sec-sn:logs" class="level3" data-number="2.2.6">
+<h3 data-number="2.2.6" class="anchored" data-anchor-id="sec-sn:logs"><span class="header-section-number">2.2.6</span> Logarithm and Exponential Function</h3>
+<!-- SUBSECTION ------------------------------------------------------- -->
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+<div class="grid">
+<div class="g-col-6">
+<p>The natural logarithm, <span class="math display">\[\ln(x)\]</span> is illustrated as the red curve in <a href="#fig-ln" class="quarto-xref">Figure&nbsp;2.7</a>. It is only defined for <span class="math inline">\(x&gt;0\)</span>. When <span class="math inline">\(x\to 0\)</span>, it has the vertical axis as its asymptote (i.e., it moves along the vertical axis <span class="math inline">\(\to -\infty\)</span>). It is continuous and monotonic and concave and has other convenient properties. The natural logarithm has a <em>base</em> of <span class="math inline">\(e\)</span> (Euler’s constant, <span class="math inline">\(e\approx 2.718282\)</span>). This means that when we evaluate <span class="math inline">\(\ln(x)\)</span> at its base (<span class="math inline">\(x=e\)</span>), we get 1. In addition, <span class="math inline">\(\ln(1)=0\)</span>, so the function goes through the two points <span class="math inline">\((1,0)\)</span> and <span class="math inline">\((e,1)\)</span>.</p>
+<p>Its inverse is the exponential function, <span class="math inline">\(e^x\)</span> or equivalently, <span class="math inline">\(\exp(x)\)</span>, depicted as blue dashed line in <a href="#fig-ln" class="quarto-xref">Figure&nbsp;2.7</a>. It is derived from <span class="math inline">\(\ln()\)</span> as reflection about the 45<span class="math inline">\(^\circ\)</span> line.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Play!">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Play!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Users may want to click on “edit graph on Desmos” to show that the graphical inverse of <span class="math inline">\(\ln(x)\)</span> indeed coincides with the <span class="math inline">\(\exp(x)\)</span> function.</p>
+</div>
+</div>
+</div>
+<div class="g-col-6">
+<div id="fig-ln" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-ln-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.7: Natural Logarithm and its Inverse, the Exponential Function
+</figcaption>
+<div aria-describedby="fig-ln-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe src="https://www.desmos.com/calculator/pes0ojqezg?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder="0"></iframe>
+</div>
+</figure>
+</div>
+</div>
+</div>
+<!-- End Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+<p>There are certain rules to be obeyed (or rather: be kept in mind) when working with logarithms, and the following example illustrates a couple of important cases.</p>
+<div id="cau-log" class="callout callout-style-default callout-caution no-icon callout-titled" title="Natural Logarithm.">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example&nbsp;2.7: Natural Logarithm.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The logarithm of a product of two variables <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> equals the sum of the logarithms <span class="math display">\[\begin{eqnarray*}
+        \ln(x_1\cdot x_2) &amp;=&amp; \ln(x_1)+\ln(x_2).
+        \end{eqnarray*}\]</span> The logarithm of a ratio of <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> equals the difference in logarithms <span class="math display">\[\begin{eqnarray*}
+        \ln(x_1/x_2) &amp;=&amp; \ln(x_1)-\ln(x_2).
+        \end{eqnarray*}\]</span></p>
+</div>
+</div>
+<div id="nte-logs" class="callout callout-style-default callout-note no-icon callout-titled" title="Generalizations of and Algebraic Rules for Logarithms.">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Remark&nbsp;2.4: Generalizations of and Algebraic Rules for Logarithms.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>More generally, we have for logarihms of base <span class="math inline">\(b\)</span> <span class="math display">\[\begin{eqnarray*}
+\log_b(1)   &amp;=&amp; 0\\
+\lim_{x\to 0}\log_b(x)   &amp;=&amp; -\infty\\
+\log_b(b)   &amp;=&amp; 1\\
+\log_b(x\cdot y) &amp;=&amp; \log_b(x) + \log_b(y)\\
+\log_b(x/y) &amp;=&amp; \log_b(x) - \log_b(y)\\
+\log_b(x^y) &amp;=&amp; y \cdot \log_b(x)\\
+\log_b(b^x) &amp;=&amp; x \cdot \log_b(b) = x
+\end{eqnarray*}\]</span> In the second line, <span class="math inline">\(\lim\)</span> denotes ‘limit’: we let <span class="math inline">\(x\)</span> go close to (but not until) zero. If <span class="math inline">\(b=e\)</span> (Euler’s constant), then <span class="math inline">\(\log_e() = \ln()\)</span>.</p>
+</div>
+</div>
+<div id="nte-exp" class="callout callout-style-default callout-note no-icon callout-titled" title="Algebraic Rules for Exponential Function.">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Remark&nbsp;2.5: Algebraic Rules for Exponential Function.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="grid">
+<div class="g-col-6">
+<p>As <span class="math inline">\(e^x\)</span> is a power function, the rules set out in <a href="#sec-sssn:power" class="quarto-xref">Section&nbsp;2.1.1.4</a> apply here as well. Some of the important ones are on the right.</p>
+</div>
+<div class="g-col-6">
+<p><span class="math display">\[\begin{eqnarray*}
+\exp(x+ y) &amp;=&amp; \exp(x)\cdot \exp(y)\\
+\exp(x- y) &amp;=&amp; \exp(x)/\exp(y)\\
+\exp(0) &amp;=&amp; 1 \\
+\lim_{x\to -\infty}\exp(x)   &amp;=&amp; 0\\
+\exp(1) &amp;=&amp; e \approx 2.718 \\
+\exp(y \cdot \ln(x))&amp;=&amp; x^y.
+\end{eqnarray*}\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION ********************************************************** -->
+</section>
+</section>
+<section id="sec-sn:map2" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="sec-sn:map2"><span class="header-section-number">2.3</span> Functions of Two or More Variables</h2>
+<!-- SECTION ********************************************************** -->
+<!-- SUBSECTION ------------------------------------------------------- -->
+<section id="definitions-and-argument-lists" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="definitions-and-argument-lists"><span class="header-section-number">2.3.1</span> Definitions and Argument Lists</h3>
+<!-- SUBSECTION ------------------------------------------------------- -->
+<p>It is easily conceived that there may be more than just one input determining the output of an economic relationship. If the domain is two-dimensional, we can write</p>
+<p><span class="math display">\[y=f(x_1,x_2)\]</span></p>
+<p>where <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> are dummy arguments (‘placeholders’) and the value <span class="math inline">\(f\)</span> is assigned to <span class="math inline">\(y\)</span>. The above is just a short-hand notation that is meant to imply that the one-dimensional function value is determined by a two-dimensional object. Three and more arguments are dealt with in a similar fashion.</p>
+<p>In general, function definitions involve an <em>argument list</em>. What is important is the <em>order</em> of these arguments within the list. The arguments in themselves are just placeholders and they can be substituted with something else.</p>
+<div id="cau-3args" class="callout callout-style-default callout-caution no-icon callout-titled" title="A Function with Three Arguments.">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example&nbsp;2.8: A Function with Three Arguments.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If <span class="math inline">\(f\)</span> is defined through</p>
+<p><span class="math display">\[f(x_1,x_2,x_3) = x_1^2 + b\cdot x_2^3 - \sqrt{x_3}\]</span></p>
+<p>we can also write</p>
+<p><span class="math display">\[f(x_3,x_1,x_2) = x_3^2 + b\cdot x_1^3 - \sqrt{x_2}\]</span></p>
+</div>
+</div>
+<!-- SUBSECTION ------------------------------------------------------- -->
+</section>
+<section id="sec-sn:sys" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="sec-sn:sys"><span class="header-section-number">2.3.2</span> Systems of Linear Equations</h3>
+<!-- SUBSECTION ------------------------------------------------------- -->
+<p>Often, we have systems of two, or several linear equations. A solution of a system of equations entails that all variables in the system appear on one side of the set of the equal signs, and we have functions of parameters (but not variables) on the other side of the equal signs. A solution is the value of the variable that makes the equations hold. This is what we seek.</p>
+<div id="cau-system" class="callout callout-style-default callout-caution no-icon callout-titled" title="System of Linear Demand and Supply Curves.">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example&nbsp;2.9: System of Linear Demand and Supply Curves.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+<div class="grid">
+<div class="g-col-6">
+<p>In addition to the demand equation in (<span class="math inline">\(\ref{ex:slope}\)</span>) we may consider a supply equation in which again quantity is a function of price. The supply function specification may read, for instance, <span class="math inline">\(Q=S(p)=2+3p\)</span>, with intercept 2 and slope 3. So, we have the system of equations <span class="math display">\[\begin{eqnarray}
+\label{ex:sys}
+Q &amp;=&amp; 10-5p \\
+\label{ex:sys2}
+Q &amp;=&amp; 2 + 3p.
+\end{eqnarray}\]</span> We now have two linear equations in two unknowns, <span class="math inline">\(p\)</span> and <span class="math inline">\(Q\)</span>. <a href="#fig-demsup" class="quarto-xref">Figure&nbsp;2.8</a> illustrates.</p>
+<p>In order to solve, we need to express both variables <span class="math inline">\(Q\)</span> <em>and</em> <span class="math inline">\(p\)</span> in terms of the coefficients. One way of going about it is to rewrite the algebraic expressions, and for instance, equate supply and demand equations, both as functions of price, as in <span class="math display">\[10-5p=2 + 3p.\]</span></p>
+</div>
+<div class="g-col-6">
+<p>It should be easy to see that this is equivalent to <span class="math inline">\(8=8p\)</span>, and hence to <span class="math inline">\(p=1\)</span>. Filling this into either demand or supply equation gives <span class="math inline">\(Q=5\)</span> and the complete solution is therefore <span class="math display">\[\begin{eqnarray*}
+p^\star &amp;=&amp; 1 \\
+Q^\star &amp;=&amp; 5.
+\end{eqnarray*}\]</span></p>
+<div id="fig-demsup" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-demsup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.8: Demand, Supply, and Equilibrium
+</figcaption>
+<div aria-describedby="fig-demsup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe src="https://www.desmos.com/calculator/lwaprfcw6y?embed" width="500" height="250" style="border: 1px solid #ccc" frameborder="0"></iframe>
+</div>
+</figure>
+</div>
+</div>
+</div>
+<!-- End Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+</div>
+</div>
+<!-- SUBSECTION ------------------------------------------------------- -->
+</section>
+<section id="sec-sn:functionecon" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="sec-sn:functionecon"><span class="header-section-number">2.3.3</span> Variables and Parameters in Economic Functions and Equations</h3>
+<!-- SUBSECTION ------------------------------------------------------- -->
+<p>The market demand function has been introduced earlier as <span class="math inline">\(Q=D(p)\)</span> relating, for a single good, the total quantity demanded by all consumers to the good’s price. However, a demand function may depend on many other things. Consider the quantity demanded <span class="math inline">\(q\)</span> of a single consumer. This may depend on the prices of other goods (the price of apples depends on the price of bananas), or the consumer’s income. We called all inputs and outputs of a function variables, but, in fact, we could treat some magnitudes as fixed parameters.</p>
+<p>What is a variable and what is a parameter in an economic model may then depend on the context. For instance, we can interpret the function <span class="math display">\[\begin{equation}
+\label{eq:dofpy}
+q = D(p, y)
+\end{equation}\]</span> as a relation between quantity demanded and income <span class="math inline">\(y\)</span>, while we treat the price as parameter. This can be useful, if we want to study what quantities consumers with different incomes buy in the same month (where all consumers face the same, fixed price for the good in question).</p>
+<p>A specification for (<span class="math inline">\(\ref{eq:dofpy}\)</span>) might be</p>
+<p><span class="math display">\[D:\quad q = 10\sqrt{y} - 2p.\]</span></p>
+<p>or, slightly more general:</p>
+<p><span class="math display">\[D:\quad q = \alpha\sqrt{y} - \beta p\]</span></p>
+<p>where <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are constants (parameters). Suppose <span class="math inline">\(y=1\)</span> and <span class="math inline">\(p=5\)</span>, what is <span class="math inline">\(q\)</span>? The answer is: <span class="math inline">\(q=\alpha-5\beta\)</span>. This is the complete answer, since the variable of interest, <span class="math inline">\(q\)</span>, is expressed in terms of everything else that is known (the constants). Without having concrete numeric values for <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, this is all we can say.</p>
+<div id="nte-greek" class="callout callout-style-default callout-note no-icon callout-titled" title="Parameters and Greek Letters.">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Remark&nbsp;2.6: Parameters and Greek Letters.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It may be tempting to interpret Greek symbols, that are used frequently, as parameter in an economic model. Often, this will be the case. But it might not be. Working with economic models takes some discipline—you need to make clear to yourself what is fixed and what varies.</p>
+</div>
+</div>
+<p>In many instances, it is customary to refer to a class of particular functions that differ from each other by values of parameters. This is often done in the context of, say, production functions or utility functions.</p>
+<div id="cau-prodf1" class="callout callout-style-default callout-caution no-icon callout-titled" title="Generic Production Function.">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example&nbsp;2.10: Generic Production Function.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A production function relates the quantities of capital <span class="math inline">\(K\)</span> and labor <span class="math inline">\(L\)</span> used to produce output <span class="math inline">\(q\)</span>,</p>
+<p><span class="math display">\[q = f(K,L)\]</span></p>
+<p>It is a mathematical description of technology available at a firm. A production function that also uses human capital <span class="math inline">\(H\)</span> as third input will be written</p>
+<p><span class="math display">\[q = f(K,L,H).\]</span></p>
+<p>(all quantities must be non-negative.)</p>
+</div>
+</div>
+<div id="cau-cobbd" class="callout callout-style-default callout-caution no-icon callout-titled" title="Cobb-Douglas Production Function.">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example&nbsp;2.11: Cobb-Douglas Production Function.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>More specifically, Cobb Douglas is a very popular specification. The square root function is one special case,</p>
+<p><span class="math display">\[q = f(K,L) = \sqrt{K\cdot L}.\]</span></p>
+<p>Sometimes, the following generalization is being used:</p>
+<p><span class="math display">\[q = f(K,L) = A \cdot K^\alpha \cdot L^\beta\]</span></p>
+<p>where <span class="math inline">\(A\)</span>, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are parameters (fixed constants).</p>
+</div>
+</div>
+<!-- SUBSECTION ------------------------------------------------------- -->
+</section>
+<section id="sec-ssn:graphisoq" class="level3" data-number="2.3.4">
+<h3 data-number="2.3.4" class="anchored" data-anchor-id="sec-ssn:graphisoq"><span class="header-section-number">2.3.4</span> 3D Graphing and Graphing of Level Curves</h3>
+<!-- SUBSECTION ------------------------------------------------------- -->
+<p>An expression like this <span class="math display">\[\begin{equation}
+\label{eq:fsqrt}
+f(x,y) = \sqrt{x\cdot y}
+\end{equation}\]</span> is a 3-dimensional object, since we have 2 input variables and one output variable. It is a very regular-looking function, fully symmetric and in many respects well-behaved. <a href="#fig-3D" class="quarto-xref">Figure&nbsp;2.9</a> shows a 3D version of this function as a three-dimensional surface. The figure also shows level curves at different levels of output (in the vertical direction). Along a level curve, output is constant. Hence, a level curve shows all different combinations of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> that yield the same level of output. In production theory, the level curves are called isoquants (the Greek prefix <em>iso</em> meaning ‘equal’).</p>
+<p>If we project the level curves onto the 2-dimsional <span class="math inline">\(x\times y\)</span> plane, we get a level curve map (view from above). This level curve is actually nothing but a 2-dimensional representation of the 3-dimensional original function. Level curve or contour maps are very similar to a topographic hiking map with elevation contours. 3D objects are harder to graph, however, certainly with pen and paper. That’s one reason why you almost never see them in economics, except here.</p>
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+<div class="grid">
+<div class="g-col-6">
+<div class="callout callout-style-default callout-tip callout-titled" title="Play!">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Play!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You may want to click on the <span class="math inline">\(\ll\)</span> symbol in <a href="#fig-3D" class="quarto-xref">Figure&nbsp;2.9</a>, and close the control panel to have a larger figure. You can turn the figure in three dimensions while clicking it, and you can look at it from any angle. Reload page to reset. You may then want to click on the <span class="math inline">\(\gg\)</span> symbol and change the functional form of the function, from initially <span class="math inline">\(\sqrt{x\cdot y} = (x\cdot y)^{\frac{1}{2}}\)</span> to <span class="math inline">\((x\cdot y)^{a}\)</span> and insert a slider for <span class="math inline">\(a\)</span>. Then, use two sliders, one for <span class="math inline">\(a\)</span> and another one for <span class="math inline">\(b\)</span> in the function <span class="math inline">\(x^a \cdot y^b\)</span>. This allows you to study all kinds of shapes covered by the Cobb Douglas specficiation shown in <a href="#cau-cobbd" class="quarto-xref">Example&nbsp;2.11</a>.</p>
+</div>
+</div>
+</div>
+<div class="g-col-6">
+<!-- Figure:........................................................... -->
+<div id="fig-3D" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-3D-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.9: 3D Function and 2D Level Curves
+</figcaption>
+<div aria-describedby="fig-3D-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe src="https://edu.nl/7rfdb" width="500" height="500" style="border: 1px solid #ccc"></iframe>
+</div>
+</figure>
+</div>
+<!-- End of Figure..................................................... -->
+</div>
+</div>
+<!-- End Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+<!-- SUBSECTION ------------------------------------------------------- -->
+</section>
+<section id="graphing-demand-as-function-of-price-and-income" class="level3" data-number="2.3.5">
+<h3 data-number="2.3.5" class="anchored" data-anchor-id="graphing-demand-as-function-of-price-and-income"><span class="header-section-number">2.3.5</span> Graphing Demand as Function of Price and Income</h3>
+<!-- SUBSECTION ------------------------------------------------------- -->
+<p>Many graphs we draw are actually two-dimensional depictions of higher-dimensional objects. For instance, a demand function relates the quantity demanded not only to the price of the good, but also on the consumers’ incomes <span class="math inline">\(y\)</span> as in <span class="math inline">\(\eqref{eq:dofpy}\)</span>. Suppose, we cannot or do not want to draw a 3D picture, then, similar to level curves, we can draw the graph many times for many different income levels.</p>
+<div id="cau-shift" class="callout callout-style-default callout-caution no-icon callout-titled" title="Shifting the Demand Curve.">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example&nbsp;2.12: Shifting the Demand Curve.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Start with specfication <span class="math display">\[D:\quad q = 10\sqrt{y} - 2p,\]</span> and consider four income levels, say, <span class="math inline">\(y=1\)</span>, <span class="math inline">\(y=4\)</span>, <span class="math inline">\(y=9\)</span>, and <span class="math inline">\(y=16\)</span>.</p>
+<p>Then we can index demand on income and put a subscript on (<span class="math inline">\(\ref{eq:dofp}\)</span>), so we treat <span class="math inline">\(y\)</span> as a parameter: <span class="math display">\[\begin{eqnarray*}
+q &amp;=&amp; D(p, y=1) = D_1(p)\\
+q &amp;=&amp; D(p, y=4) = D_4(p)\\
+q &amp;=&amp; D(p, y=9) = D_{9}(p)\\
+q &amp;=&amp; D(p, y=16) = D_{16}(p)
+\end{eqnarray*}\]</span></p>
+<p>This is shown in <a href="#fig-demfam" class="quarto-xref">Figure&nbsp;2.10</a> where lower incomes have a lighter shade of red. For income level <span class="math inline">\(y=4\)</span>, <span class="math inline">\(D_4()\)</span> applies. When we then vary the price <span class="math inline">\(p\)</span> consumers will demand different quantities <span class="math inline">\(q\)</span>. We do not change income as that happens. That is, we always look at the same demand curve, <span class="math inline">\(D_4()\)</span>. Changing the price results in a movement <em>along the curve</em>.</p>
+<p>Increasing income, means we select a higher demand function. While keeping the price unchanged, say at price <span class="math inline">\(p_0\)</span>, the consumer demands higher quantities. This change results in a change <em>of the curve</em>. <a href="#fig-shift" class="quarto-xref">Figure&nbsp;2.11</a> illustrates this point.</p>
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+<div class="grid">
+<div class="g-col-6">
+<div id="fig-demfam" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-demfam-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.10: Family of Demands, by Income
+</figcaption>
+<div aria-describedby="fig-demfam-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe src="https://www.desmos.com/calculator/ci17vrsmqt?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder="0"></iframe>
+</div>
+</figure>
+</div>
+</div>
+<div class="g-col-6">
+<div id="fig-shift" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-shift-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.11: Shifting the Curve
+</figcaption>
+<div aria-describedby="fig-shift-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe src="https://www.desmos.com/calculator/ondikk4oz5?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder="0"></iframe>
+</div>
+</figure>
+</div>
+</div>
+</div>
+<!-- End Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+</div>
+</div>
+<p>Of course, when we say that <span class="math inline">\(y\)</span> is a parameter, this is in some sense arbitrary. It is conceivable that income also plays the role of an economic variable. If we were to keep prices fixed and study how the quantity demanded varies with income, we would graph a so-called <span class="smallcaps">Engel</span> curve with quantity and income on the axes. Indeed, the definition <span class="math inline">\(\eqref{eq:dofpy}\)</span> makes no distinction, and we mentioned that the graph of the function would need a three-dimensional representation.</p>
+<div id="nte-label2" class="callout callout-style-default callout-note no-icon callout-titled" title="Labeling.">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Remark&nbsp;2.7: Labeling.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We reiterate that it is always necessary not only to define your symbols but also to label all elements of a graph. The preceding example also made clear once again why it is not a good idea to refer to any of the axes as the <span class="math inline">\(y\)</span>-axis, as <span class="math inline">\(y\)</span> is a parameter in the model and not on the axis.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="Changes Along and Of the Curve">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Changes Along and Of the Curve
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Changes in whatever variable is on one of the axes results in a movement <em>along</em> the curve, given the curve’s definition. Whatever is not on one of the axes can be regarded as a parameter, and parameter changes illustrate a ‘movement’ <em>of the curve</em>.</p>
+</div>
+</div>
+<div id="tip-graph2" class="callout callout-style-default callout-tip no-icon callout-titled" title="">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise&nbsp;2.2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Consider a demand curve for a certain good, say, bananas, where <span class="math inline">\(q_b\)</span> denotes the quantity of bananas demanded, <span class="math inline">\(p_b\)</span> denotes the price of bananas, and <span class="math inline">\(y\)</span> denotes income. Also consider that the price of apples, <span class="math inline">\(p_a\)</span>, may influence the quantity of bananas demanded. Specify the demand function as: <span class="math inline">\(q_b = 10\sqrt{y} - 2p_b/p_a\)</span>. What changes compared to the discussion above, and how can you depict a change in the price of apples?</p>
+</div>
+</div>
+<!-- SECTION ********************************************************** -->
+</section>
+</section>
+<section id="sec-sn:anal1" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="sec-sn:anal1"><span class="header-section-number">2.4</span> Analysis of Functions of One Variable</h2>
+<!-- SECTION ********************************************************** -->
+<!-- SUBSECTION ------------------------------------------------------- -->
+<section id="sec-sn:anal" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="sec-sn:anal"><span class="header-section-number">2.4.1</span> Analysis and Optimization</h3>
+<!-- SUBSECTION ------------------------------------------------------- -->
+<p>Functional analysis refers to figuring out how a function <span class="math inline">\(y=f(x)\)</span> behaves when we know its definition. One important step is making a picture. But we may want to be more precise and calculate exactly where the function crosses the zero line, where it has a maximum or a minimum, and when it changes slope and shape. The most important step to doing so is to determine the derivative of the function. For the topic of optimization, we may even consider the second derivative.</p>
+<p>Optimization is about either maximizing or minimizing a function. That is, we try to find those values in the domain for which the function value attains its maximum or minimum. The optimization problem may further be restricted in the sense that certain types of constraints are imposed. We need only consider maximization of a function <span class="math inline">\(f\)</span>. Minimization of <span class="math inline">\(f\)</span> is easily accomplished by maximizing <span class="math inline">\(-f\)</span>. We shall restrict ourselves to local optimization only; global optimization can be ensured by placing additional restrictions on the behavior of the function.</p>
+<!-- SUBSECTION ------------------------------------------------------- -->
+</section>
+<section id="sec-sn:1stder" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="sec-sn:1stder"><span class="header-section-number">2.4.2</span> First Derivative</h3>
+<!-- SUBSECTION ------------------------------------------------------- -->
+<p>Simply put, the derivative is the slope of the function at a point. We ask: if <span class="math inline">\(x\)</span> changes by 1 ‘small unit’, by how much does <span class="math inline">\(y\)</span> change?</p>
+<p>There is an intuitive way and an easy way of doing things. The intuitive one is to evaluate the function at two values, calculate the difference, and take a ratio.</p>
+<div id="cau-deriv1" class="callout callout-style-default callout-caution no-icon callout-titled" title="The Intuitive but Cumbersome and Possibly Wrong Way to Obtain a Derivative.">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example&nbsp;2.13: The Intuitive but Cumbersome and Possibly Wrong Way to Obtain a Derivative.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Consider the function <span class="math inline">\(f(x) = x^2\)</span> and the coordinate <span class="math inline">\(x=0\)</span>.</p>
+<ol type="1">
+<li>calculate <span class="math inline">\(f(x)\)</span> at two values of <span class="math inline">\(x_0\)</span> and <span class="math inline">\(x_1\)</span> of <span class="math inline">\(x\)</span>, say <span class="math inline">\(x_0=0\)</span> and <span class="math inline">\(x_1=1\)</span>: <span class="math display">\[f(0) = 0\quad \text{and}\quad f(1)=1\]</span></li>
+<li>consider the difference operator <span class="math inline">\(\Delta\)</span> (<a href="#sec-sssn:diff" class="quarto-xref">Section&nbsp;2.1.1.2</a>) to calculate the change in <span class="math inline">\(x\)</span>, <span class="math inline">\(\Delta x = x_1-x_0\)</span>, and the change in <span class="math inline">\(f(x)\)</span>, <span class="math inline">\(\Delta f = f(x_1) - f(x_0)\)</span>, <span class="math display">\[\Delta x=1-0 = 1  \quad \text{and}\quad  \Delta f = 1-0 = 1\]</span></li>
+<li>calculate the ratio, <span class="math display">\[\frac{\Delta f}{\Delta x} = \frac{1}{1} = 1\]</span>.</li>
+</ol>
+</div>
+</div>
+<p>Hence, relating the change in <span class="math inline">\(f\)</span> to <span class="math inline">\(\Delta x\)</span> tells us what we want to know: how does <span class="math inline">\(f\)</span> behave when <span class="math inline">\(x\)</span> changes a little. The example took us through a number of steps, which makes calculation cumbersome, especially if the function evaluation is a bit more complicated than what we have here. Second, the choice of <span class="math inline">\(x_1\)</span> or <span class="math inline">\(\Delta x\)</span> is arbitrary, we could have made it larger or smaller, and chosen any other value. Third, as we’ll demonstrate, the answer is imprecise at best and plainly wrong at worst. Only if <span class="math inline">\(\Delta x\)</span> is really ‘small’, we’re in business.</p>
+<p>Of course, one obvious implication of taking a derivative is that it will depend in general on where (at what value of <span class="math inline">\(x_0\)</span> of <span class="math inline">\(x\)</span>) we evaluate <span class="math inline">\(f(x)\)</span>.</p>
+<div id="cau-slopelin" class="callout callout-style-default callout-caution no-icon callout-titled" title="Slope of a Linear Function.">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example&nbsp;2.14: Slope of a Linear Function.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When <span class="math inline">\(f()\)</span> is linear, as in <span class="math inline">\(f(x) = a+bx\)</span>, then <span class="math inline">\(\dfrac{\Delta f}{\Delta x}=b\)</span>. This is clear because <span class="math inline">\(f(x_1) = a+bx_1\)</span>, <span class="math inline">\(f(x_0) = a+bx_0\)</span>, <span class="math inline">\(\Delta f = b(x_1-x_0)\)</span>, and <span class="math inline">\(\Delta x = (x_1-x_0).\)</span> Thus, the coefficient <span class="math inline">\(b\)</span> is the slope of the linear function, and it actually does not matter what values we choose for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_0\)</span>.</p>
+</div>
+</div>
+<p><span class="math inline">\(\Delta x\)</span> in <a href="#cau-slopelin" class="quarto-xref">Example&nbsp;2.14</a> could have been ‘big’. However, a linear function is not very general.</p>
+<div id="wrn-differential" class="callout callout-style-default callout-warning no-icon callout-titled" title="Derivative.">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definition&nbsp;2.1: Derivative.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>More generally, the (first) derivative can be defined as <span class="math display">\[\begin{equation}
+\label{eq:fprime}
+f'(x) \equiv
+\lim_{\Delta x \to 0} \frac{\Delta f(x)}{\Delta x}
+=\lim_{\Delta x \to 0} \frac{f(x+\Delta x)-f(x)}{\Delta x}
+\quad \text{or}\quad
+\frac{\text{d}y}{\text{d}x} = \frac{f(x+\text{d} x)-f(x)}{\text{d} x}
+\end{equation}\]</span> where <span class="math inline">\(\Delta x\)</span> or <span class="math inline">\(\text{d} x\)</span> is a small number that we add to <span class="math inline">\(x\)</span>.</p>
+</div>
+</div>
+<p><span class="math inline">\(\text{d} x\)</span> can be as small as we wish, for instance <span class="math inline">\(0.00001\)</span> is a possibility. This is what we mean by ‘small’. It must not be exactly zero, however.</p>
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+<div class="grid">
+<div class="g-col-6">
+<p>Clearly, in general</p>
+<p><span class="math display">\[\frac{\Delta f(x)}{\Delta x}
+\neq
+\lim_{\Delta x \to 0} \frac{\Delta f(x)}{\Delta x}.
+\]</span></p>
+<p>The difference is an approximation error. This is illustrated in <a href="#fig-derivexample1" class="quarto-xref">Figure&nbsp;2.12</a> for <span class="math inline">\(f(x)=\ln(x+1)\)</span> (the red curve): In this example, <span class="math inline">\(\Delta f/\Delta x\)</span> underestimates the true slope at the initial (blue) point.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Play!">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Play!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Click on “edit graph on Desmos” in the lower right corner. There is a slider <span class="math inline">\(d\)</span> that let’s you select the size of <span class="math inline">\(\Delta x\)</span>. It is originally set to <span class="math inline">\(1\)</span>, but you can shift it. As it gets smaller, the error, committed by using <span class="math inline">\(\Delta f/\Delta x\)</span>, gets smaller as well.</p>
+<p>If you shift point A, you will be able to see that the size of the approximation error gets larger as A moves to the left. Conversely, on the right, where <span class="math inline">\(f()\)</span> becomes almost linear or flat, the error is not so big. Compare <a href="#cau-slopelin" class="quarto-xref">Example&nbsp;2.14</a>.</p>
+</div>
+</div>
+</div>
+<div class="g-col-6">
+<div id="fig-derivexample1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-derivexample1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.12: First Derivative and Approximation Error
+</figcaption>
+<div aria-describedby="fig-derivexample1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe src="https://www.desmos.com/calculator/pmwr6eomvo?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder="0"></iframe>
+</div>
+</figure>
+</div>
+</div>
+</div>
+<!-- End Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+<p>The functional form of <span class="math inline">\(f(x)\)</span> will determine whether it is easy or difficult to take the derivative using analytical methods. Some of the easy-to-remember results are in <a href="#tbl-tb:derivex" class="quarto-xref">Table&nbsp;2.1</a>.</p>
+<div id="tbl-tb:derivex" class="striped hover quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-tb:derivex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.1: Examples of (First) Derivatives
+</figcaption>
+<div aria-describedby="tbl-tb:derivex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table-striped table-hover caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 46%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><span class="math inline">\(f(x)\)</span></th>
+<th><span class="math inline">\(f'(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>constant</td>
+<td><span class="math inline">\(a\)</span></td>
+<td><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="even">
+<td>linear</td>
+<td><span class="math inline">\(a+b\cdot x\)</span></td>
+<td><span class="math inline">\(b\)</span></td>
+</tr>
+<tr class="odd">
+<td>quadratic</td>
+<td><span class="math inline">\(a+b\cdot x+c\cdot x^2\)</span></td>
+<td><span class="math inline">\(b+2c\cdot x\)</span></td>
+</tr>
+<tr class="even">
+<td>cubic</td>
+<td><span class="math inline">\(a+b\cdot x+c\cdot x^2+d\cdot x^3\)</span></td>
+<td><span class="math inline">\(b+2c\cdot x+3d\cdot x^2\)</span></td>
+</tr>
+<tr class="odd">
+<td>exponential</td>
+<td><span class="math inline">\(\exp(x)\)</span></td>
+<td><span class="math inline">\(\exp(x)\)</span></td>
+</tr>
+<tr class="even">
+<td>logarithm</td>
+<td><span class="math inline">\(\ln(x)\)</span></td>
+<td><span class="math inline">\(\dfrac{1}{x}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><a href="#tbl-tb:derivgen" class="quarto-xref">Table&nbsp;2.2</a> gives additional generalizations when we have functions that are combined.</p>
+<div id="tbl-tb:derivgen" class="striped hover quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-tb:derivgen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.2: Rules of Derivation: General Case
+</figcaption>
+<div aria-describedby="tbl-tb:derivgen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table-striped table-hover caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 29%">
+<col style="width: 58%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><span class="math inline">\(f(x)\)</span></th>
+<th><span class="math inline">\(f'(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>power</td>
+<td><span class="math inline">\(x^n\)</span></td>
+<td><span class="math inline">\(n\cdot x^{n-1}\)</span></td>
+</tr>
+<tr class="even">
+<td>polynomial</td>
+<td><span class="math inline">\(\sum_{j=1}^n a_j\cdot x^j\)</span></td>
+<td><span class="math inline">\(\sum_{j=1}^n a_j\cdot j\cdot x^{j-1}\)</span></td>
+</tr>
+<tr class="odd">
+<td>sum</td>
+<td><span class="math inline">\(g(x)+h(x)\)</span></td>
+<td><span class="math inline">\(g'(x) + h'(x)\)</span></td>
+</tr>
+<tr class="even">
+<td>product</td>
+<td><span class="math inline">\(g(x)\cdot h(x)\)</span></td>
+<td><span class="math inline">\(g'(x) \cdot h(x) + g(x) \cdot h'(x)\)</span></td>
+</tr>
+<tr class="odd">
+<td>chain rule</td>
+<td><span class="math inline">\(g(h(x))\)</span></td>
+<td><span class="math inline">\(g'(h(x)) \cdot h'(x)\)</span></td>
+</tr>
+<tr class="even">
+<td>quotient</td>
+<td><span class="math inline">\(\displaystyle \frac{g(x)}{h(x)}\)</span></td>
+<td><span class="math inline">\(\displaystyle \frac{g'(x)\cdot h(x) - g(x) \cdot h'(x)}{[h(x)]^2}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<!-- SUBSECTION ---------------------------------------------------- -->
+</section>
+<section id="sec-ssn:elas" class="level3" data-number="2.4.3">
+<h3 data-number="2.4.3" class="anchored" data-anchor-id="sec-ssn:elas"><span class="header-section-number">2.4.3</span> Elasticity</h3>
+<!-- SUBSECTION ---------------------------------------------------- -->
+<p>An elasticity is prominent concept in economics and related to derivatives. It is a number that tells us by how many percentage points the function value changes, when the argument changes by 1%. As with derivatives, this definition ought to be interpreted marginally, and elasticities therefore be defined in terms of derivatives.</p>
+<div id="wrn-elasticity" class="callout callout-style-default callout-warning no-icon callout-titled" title="Elasticity.">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definition&nbsp;2.2: Elasticity.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In general, we may want to define an elasticity as</p>
+<p><span class="math display">\[\begin{equation}
+\label{eq:ela}
+\eta(x) = f'(x) \cdot \frac{x}{f(x)} \qquad \text{or} \qquad \eta(x) = f'(x) \left/ \frac{f(x)}{x} \right.
+\end{equation}\]</span></p>
+<p>rather than using the clumsier <span class="math display">\[\eta(x) \approx \frac{\Delta f}{\Delta x} \cdot \frac{x}{f(x)}.\]</span></p>
+<p>A to <span class="math inline">\(\eqref{eq:ela}\)</span> equivalent definition is <span class="math display">\[\eta(x) = \frac{\text d \ln(f(x))}{\text d \ln(x)}.\]</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="Elasticity: Core Warnings">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Elasticity: Core Warnings
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>elasticity <span class="math inline">\(\neq\)</span> slope of a curve</li>
+<li>elasticity <span class="math inline">\(\neq\)</span> constant, along a curve (including straight lines)</li>
+<li>price elasticity negative due to downward-falling demand curve</li>
+<li>low demand elasticity <span class="math inline">\(\sim\)</span> ‘steep’ curve in demand diagram <span class="math inline">\(\sim\)</span> quantity reacts little to price change</li>
+<li>extremes:
+<ul>
+<li>vertical curve = fully inelastic (elasticity of zero)</li>
+<li>horizontal curve = fully elastic ((absolute) elasticity of infinity)</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="cau-DSela" class="callout callout-style-default callout-caution no-icon callout-titled" title="Demand and Supply Elasticities">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example&nbsp;2.15: Demand and Supply Elasticities
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="#fig-DSela" class="quarto-xref">Figure&nbsp;2.13</a> shows examples of elasticies for demand and supply. You can change the shape of the curve from linear to hyperbolic or square root, and you can shift around <span class="math inline">\(Q_0\)</span> at which the elasticity is evaluated. Clicking “edit graph on desmos” allows you to also change some parameters of each curve.</p>
+<p>The Figure has one additional element next to the slope of the function <span class="math inline">\(Q_0\)</span>: it shows a ray through the origin to the point on the curve. Its slope is <span class="math display">\[\frac{D(p_0)}{p_0}.\]</span> Compare the second term in <span class="math inline">\(\eqref{eq:ela}\)</span>: the elasticity in a point equals the slope of the function at the point divided by the slope of a ray through the origin to the point. This reflects a relation between a marginal concept and an average concept, and explains why the elasticity is unit free.</p>
+<div id="fig-DSela" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-DSela-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.13
+</figcaption>
+<div aria-describedby="fig-DSela-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-DSela" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-demandela" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<figcaption class="quarto-float-caption-top quarto-subfloat-caption quarto-subfloat-fig" id="fig-demandela-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Price Elasticity of Demand
+</figcaption>
+<div aria-describedby="fig-demandela-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe src="https://www.desmos.com/calculator/qcngeeutyo?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder="0"></iframe>
+</div>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-DSela" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-supplyela" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<figcaption class="quarto-float-caption-top quarto-subfloat-caption quarto-subfloat-fig" id="fig-supplyela-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Price Elasticity of Supply
+</figcaption>
+<div aria-describedby="fig-supplyela-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe src="https://www.desmos.com/calculator/lglmrwltcz?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder="0"></iframe>
+</div>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</div>
+<!-- SUBSECTION ------------------------------------------------------- -->
+</section>
+<section id="sec-sn:2ndder" class="level3" data-number="2.4.4">
+<h3 data-number="2.4.4" class="anchored" data-anchor-id="sec-sn:2ndder"><span class="header-section-number">2.4.4</span> Second Derivative</h3>
+<!-- SUBSECTION ------------------------------------------------------- -->
+<p>The second derivative is the (first) derivative on the (first) derivative. So, whereas the first derivative determined <span class="math inline">\(f'(x)\)</span> from <span class="math inline">\(f(x)\)</span>, we now want to know the derivative <span class="math inline">\((f'(x))'\)</span> from <span class="math inline">\(f'(x)\)</span>. This is conceptually simple, because we just go through two rounds of differentiation. We denote the second derivative by <span class="math display">\[f''(x) = \frac{\text{d}^2 f}{\text{d}x^2}.\]</span></p>
+<p><a href="#tbl-tb:derivex2" class="quarto-xref">Table&nbsp;2.3</a> lists further examples.</p>
+<div id="tbl-tb:derivex2" class="striped hover quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-tb:derivex2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.3: Examples of (First and) Second Derivatives
+</figcaption>
+<div aria-describedby="tbl-tb:derivex2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table-striped table-hover caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 35%">
+<col style="width: 27%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><span class="math inline">\(f(x)\)</span></th>
+<th><span class="math inline">\(f'(x)\)</span></th>
+<th><span class="math inline">\(f''(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>constant</td>
+<td><span class="math inline">\(a\)</span></td>
+<td><span class="math inline">\(0\)</span></td>
+<td><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="even">
+<td>linear</td>
+<td><span class="math inline">\(a+b\cdot x\)</span></td>
+<td><span class="math inline">\(b\)</span></td>
+<td><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="odd">
+<td>quadratic</td>
+<td><span class="math inline">\(a+b\cdot x+c\cdot x^2\)</span></td>
+<td><span class="math inline">\(b+2c\cdot x\)</span></td>
+<td><span class="math inline">\(2c\)</span></td>
+</tr>
+<tr class="even">
+<td>cubic</td>
+<td><span class="math inline">\(a+b\cdot x+c\cdot x^2+d\cdot x^3\)</span></td>
+<td><span class="math inline">\(b+2c\cdot x+3d\cdot x^2\)</span></td>
+<td><span class="math inline">\(2c+6d\cdot x\)</span></td>
+</tr>
+<tr class="odd">
+<td>power</td>
+<td><span class="math inline">\(x^n\)</span></td>
+<td><span class="math inline">\(n\cdot x^{n-1}\)</span></td>
+<td><span class="math inline">\((n-1)n\cdot x^{n-2}\)</span></td>
+</tr>
+<tr class="even">
+<td>polynomial</td>
+<td><span class="math inline">\(\sum_{j=1}^n a_j\cdot x^j\)</span></td>
+<td><span class="math inline">\(\sum_{j=1}^n a_j\cdot j\cdot x^{j-1}\)</span></td>
+<td><span class="math inline">\(\sum_{j=1}^n a_j\cdot (j-1)j \cdot x^{j-2}\)</span></td>
+</tr>
+<tr class="odd">
+<td>exponential</td>
+<td><span class="math inline">\(\exp(x)\)</span></td>
+<td><span class="math inline">\(\exp(x)\)</span></td>
+<td><span class="math inline">\(\exp(x)\)</span></td>
+</tr>
+<tr class="even">
+<td>logarithm</td>
+<td><span class="math inline">\(\ln(x)\)</span></td>
+<td><span class="math inline">\(\dfrac{1}{x}\)</span></td>
+<td><span class="math inline">\(-\dfrac{1}{x^2}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<!-- SUBSECTION ------------------------------------------------------- -->
+</section>
+<section id="sec-sn:max" class="level3" data-number="2.4.5">
+<h3 data-number="2.4.5" class="anchored" data-anchor-id="sec-sn:max"><span class="header-section-number">2.4.5</span> Maximization and Minimization</h3>
+<!-- SUBSECTION ------------------------------------------------------- -->
+<p>We denote to maximizing a (twice) differentiable function with</p>
+<p><span class="math display">\[\max_{x} f(x)\]</span></p>
+<p>The solution is a (local) maximum, that is, the point <span class="math inline">\((x^\star,f(x^\star))\)</span>, for which</p>
+<p><span class="math display">\[f(x^\star) \ge f(x)\]</span></p>
+<p>in a neighborhood of <span class="math inline">\(x^\star\)</span>. It can be found by applying the following necessary (first and second order) conditions.</p>
+<p>First order condition (FOC)</p>
+<p><span class="math display">\[f'(x) = 0\]</span></p>
+<p>second order condition (SOC)</p>
+<p><span class="math display">\[f''(x) &lt; 0.\]</span></p>
+<div id="nte-min" class="callout callout-style-default callout-note no-icon callout-titled" title="Minimization.">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Remark&nbsp;2.8: Minimization.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The first order condition is the same for minimization. The second order condition reads</p>
+<p><span class="math display">\[f''(x) &gt; 0.\]</span></p>
+</div>
+</div>
+<p>The maximum <span class="math inline">\((x^\star,f(x^\star))\)</span> can be found by solving the first order condition <span class="math inline">\(f'()=0\)</span> for <span class="math inline">\(x=x^\circ\)</span> and inserting <span class="math inline">\(x^\circ\)</span> into the second order condition <span class="math inline">\(f''()&lt;0\)</span> to check if it holds; if yes, then <span class="math inline">\(x^\star=x^\circ\)</span>.</p>
+<p>It is customary in economic models to restrict functions in such a way that one can exclude the possibility that the point identified by the first order condition is not a maximum. That is to say, the first order condition will be both necessary and sufficient. For instance, a globally concave function will have a maximum where the the first order condition is satisfied, since the second order condition holds automatically.</p>
+<p>If the function is however not so “well behaved”, there is no guarantee that the first order condition yields a maximum; the points found are only potential candidates, and they may turn out to be either minima or saddle points (where the second derivate changes signs to the right and left of <span class="math inline">\(x^\circ\)</span>).</p>
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+<div class="grid">
+<div class="g-col-6">
+<p><a href="#fig-deriv1and2" class="quarto-xref">Figure&nbsp;2.14</a> shows a nonlinear function, indicates the size of the first derivative at a point and the sign of the second derivative.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Play!">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Play!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Shift the movable point around and try to catch the points where</p>
+<ul>
+<li>the first derivative is zero</li>
+<li>the second derivative is zero</li>
+</ul>
+</div>
+</div>
+<div id="tip-secder" class="callout callout-style-default callout-tip no-icon callout-titled" title="Do the Math and Check!">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise&nbsp;2.3: Do the Math and Check!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The function in <a href="#fig-deriv1and2" class="quarto-xref">Figure&nbsp;2.14</a> is a third-order polynomial of the form <span class="math display">\[f(x)=ax^3+bx^2+cx+d\]</span> The initial parameter values are <span class="math inline">\(a=0.2\)</span>, <span class="math inline">\(b=1.2\)</span>, <span class="math inline">\(c=0.5\)</span> and <span class="math inline">\(d=-2.\)</span></p>
+<p>Determine analytically first and second derivative, find all minima and maxima and inflection points. Compare with your graphical solution in the figure.</p>
+<p>Change the parameter values and repeat 3 times!</p>
+</div>
+</div>
+</div>
+<div class="g-col-6">
+<div id="fig-deriv1and2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-deriv1and2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.14: First and Second Derivative
+</figcaption>
+<div aria-describedby="fig-deriv1and2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe src="https://www.desmos.com/calculator/ibhc09svn2?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder="0"></iframe>
+</div>
+</figure>
+</div>
+</div>
+</div>
+<!-- End Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+<!-- SECTION ********************************************************** -->
+</section>
+</section>
+<section id="sec-sn:anal2" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="sec-sn:anal2"><span class="header-section-number">2.5</span> Analysis of Functions of Two or More Variables</h2>
+<!-- SECTION ********************************************************** -->
+<!-- SUBSECTION ------------------------------------------------------- -->
+<section id="sec-sn:der2" class="level3" data-number="2.5.1">
+<h3 data-number="2.5.1" class="anchored" data-anchor-id="sec-sn:der2"><span class="header-section-number">2.5.1</span> Partial Derivatives</h3>
+<!-- SUBSECTION ------------------------------------------------------- -->
+<div id="wrn-partial" class="callout callout-style-default callout-warning no-icon callout-titled" title="Partial Derivative.">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definition&nbsp;2.3: Partial Derivative.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If <span class="math inline">\(f\)</span> is a function of two variables <span class="math inline">\(f(x_1,x_2)\)</span>, then we can define the partial derivative with respect to either <span class="math inline">\(x_1\)</span> or <span class="math inline">\(x_2\)</span>. For instance, for <span class="math inline">\(x_1\)</span>, we have</p>
+<p><span class="math display">\[\frac{\partial f}{\partial x_1}  = \lim_{\Delta x_1 \to 0} \frac{f(x_1+\Delta x_1,x_2)-f(x_1,x_2)}{\Delta x_1}.\]</span></p>
+</div>
+</div>
+<p>We view the function as a function of just one variable <span class="math inline">\(x_1\)</span>, and treat the other as if it were a constant. Then, we take the derivative as usual. The results of <a href="#tbl-tb:derivgen" class="quarto-xref">Table&nbsp;2.2</a>, <a href="#tbl-tb:derivgen" class="quarto-xref">Table&nbsp;2.2</a> and <a href="#tbl-tb:derivex2" class="quarto-xref">Table&nbsp;2.3</a> carry over directly. Do note the special symbol <span class="math inline">\(\partial x\)</span> that indicates a partial derivative.</p>
+<p>Partial derivatives are also denoted by <span class="math inline">\(\displaystyle f_{1} = \frac{\partial f}{\partial x_1}\)</span>, <span class="math inline">\(\displaystyle f_{11} = \frac{\partial^2 f}{\partial x_1^2}\)</span>, <span class="math inline">\(\displaystyle f_{12} = \frac{\partial^2 f}{\partial x_1 \partial x_2}\)</span>, where the latter is a cross-derivative. For those we have a symmetry property</p>
+<p><span class="math display">\[f_{21}=f_{12}.\]</span></p>
+<!-- SUBSECTION ------------------------------------------------------- -->
+</section>
+<section id="sec-sn:max2" class="level3" data-number="2.5.2">
+<h3 data-number="2.5.2" class="anchored" data-anchor-id="sec-sn:max2"><span class="header-section-number">2.5.2</span> Maximization with Two Variables</h3>
+<!-- SUBSECTION ------------------------------------------------------- -->
+<p>With two (or more) arguments of a function, we need to determine the first order conditions with respect to each variable and solve a system of equations. There is nothing difficult about it (however we simply assume that the second order conditions hold, which also involve cross-derivatives).</p>
+<div id="cau-2args" class="callout callout-style-default callout-caution no-icon callout-titled" title="Two Variables.">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example&nbsp;2.16: Two Variables.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Consider the function</p>
+<p><span class="math display">\[f(x_1,x_2) = -\frac{1}{2}x_1^2-\frac{1}{2}x_2^2\]</span></p>
+<p>This is a simple quadratic function with two arguments, and it is negative for all <span class="math inline">\(x_1&gt;0,x_2&gt;0\)</span>, as rewriting makes clear.</p>
+<p><span class="math display">\[f(x_1,x_2) = -\frac{1}{2}(x_1^2+x_2^2).\]</span></p>
+<p>First order conditions are <span class="math display">\[\begin{eqnarray*}
+f_1(x_1,x_2) &amp;=&amp; -x_1 = 0 \\
+f_2(x_1,x_2) &amp;=&amp; -x_2 = 0
+\end{eqnarray*}\]</span> such that <span class="math inline">\(x_1^\star = x^\star_2 = 0\)</span> and a maximum of <span class="math inline">\(f(0,0)=0\)</span>.</p>
+<p>To see this directly, code the function in the <a href="https://desmos.com/3d" target="_blank">Desmos 3D calculator</a></p>
+</div>
+</div>
+<!-- SUBSECTION ------------------------------------------------------- -->
+</section>
+<section id="sec-sn:maxcf" class="level3" data-number="2.5.3">
+<h3 data-number="2.5.3" class="anchored" data-anchor-id="sec-sn:maxcf"><span class="header-section-number">2.5.3</span> Maximization under Constraints</h3>
+<!-- SUBSECTION ------------------------------------------------------- -->
+<p>A suitable method to maximize a function taking into account a constraint that needs to be obeyed is the so-called ‘direct’ method with substitution. We illustrate with an example of a consumer optimizing their utility function under budget constraint.</p>
+<div id="cau-copt1" class="callout callout-style-default callout-caution no-icon callout-titled" title="Consumer Optimization.">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example&nbsp;2.17: Consumer Optimization.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let the function to be maximized be <span class="math display">\[\begin{equation}
+\label{eq:objex}
+\max_{x_1,x_2} u(x_1,x_2) = 2 \ln x_1 + \ln x_2
+\end{equation}\]</span> under the constraint that <span class="math display">\[\begin{equation}
+\label{eq:constex}
+p_1 \cdot x_1 +  p_2 \cdot x_2 -  m = 0
+\end{equation}\]</span> We seek a set of values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> that maximize (<span class="math inline">\(\ref{eq:objex}\)</span>) taking into account (<span class="math inline">\(\ref{eq:constex}\)</span>). These values will be functions of the parameters <span class="math inline">\(p_1\)</span>, <span class="math inline">\(p_2\)</span> and <span class="math inline">\(m\)</span>.</p>
+<p>We can solve this problem ‘directly’ by first solving (<span class="math inline">\(\ref{eq:constex}\)</span>) for <span class="math inline">\(x_2\)</span>, <span class="math display">\[\begin{equation}
+\label{eq:constex1}
+x_2 = \frac{m- p_1 x_1}{ p_2}
+\end{equation}\]</span> and substituting into (<span class="math inline">\(\ref{eq:objex}\)</span>): <span class="math display">\[\begin{equation}
+\label{eq:objex1}
+f(x_1) \equiv u\left(x_1,\frac{m- p_1 x_1}{ p_2}\right) = 2 \ln x_1 + \ln\left( \frac{m- p_1 x_1}{ p_2}\right).
+\end{equation}\]</span> We then maximize this function without any constraint. The first-order condition is</p>
+<p><span class="math display">\[f'(x_1) = \frac{2}{x_1} - \frac{ p_2}{m- p_1 x_1} = 0\]</span></p>
+<p>Solving for <span class="math inline">\(x_1\)</span> gives the optimal value <span class="math inline">\(x_1^\star=\frac{2}{3} \cdot  m/ p_1\)</span>, plugging this into (<span class="math inline">\(\ref{eq:constex1}\)</span>) gives the optimal value <span class="math inline">\(x_2^\star=\frac{1}{3} \cdot  m/ p_2\)</span>. Here, we have demand for good 1 (2) as function of price <span class="math inline">\(p_1\)</span> (<span class="math inline">\(p_2\)</span>) and money income <span class="math inline">\(m\)</span>.</p>
+</div>
+</div>
+<p>Note, what this approach has achieved: we had two variables to choose from but did not use two first-order conditions as in <a href="#sec-sn:max2" class="quarto-xref">Section&nbsp;2.5.2</a>. Instead, the budget constraint creates a direct link between the choice variables <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>: from it, we express one variable as a function of the other and hence get rid of one variable. We are left with a simple maximization problem as in <a href="#sec-sn:max" class="quarto-xref">Section&nbsp;2.4.5</a>.</p>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>

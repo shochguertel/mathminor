@@ -1,0 +1,1470 @@
+---
+title: "Review of Some Useful Math"
+subtitle: |
+    | Algebra, Functions, Graphs, and a bit of Calculus
+    |
+    | University Minor Economics • Vrije Universiteit Amsterdam
+author:
+    name: "Stefan Hochguertel"
+date: October 7, 2024
+date-modified: today
+toc: true
+toc-title: Contents
+toc-expand: 1
+toc-depth: 3
+reference-location: document
+citation-location: document
+number-sections: true
+fig-cap-location: top
+tbl-cap-location: top
+language:
+  en:
+    crossref-tip-title:  "Exercise"
+    crossref-tip-prefix: "Exercise"
+    crossref-nte-title:  "Remark"
+    crossref-nte-prefix: "Remark"
+    crossref-cau-title:  "Example"
+    crossref-cau-prefix: "Example"
+    crossref-wrn-title:  "Definition"
+    crossref-wrn-prefix: "Definition"
+crossref:
+  chapters: true
+format:
+  html:
+    page-layout: full
+    toc: true
+    toc-location: left
+    title-block-banner: "#FFDDFF"
+    title-block-banner-color: black
+    html-math-method: mathjax
+    include-in-header: 
+    - mathjaxdirective.html 
+abstract: |
+    This document contains a brief listing of useful math that many economics courses beyong principles levels would use. We skip all proofs and appeal to intuition.
+---
+
+<style>
+figcaption {
+  margin: auto;
+  text-align: center;
+}
+</style>
+
+
+<!-- CHAPTER ********************************************************** -->
+# Preface {#sec-ch:preface .unnumbered}
+<!-- CHAPTER ********************************************************** -->
+
+
+This document contains a brief listing of useful math, skipping proofs, and only containing very few examples. We embed graphs made with the graphing calculator available at [desmos.com](https://desmos.com){target="_blank"}. We believe Desmos design is so intuitive, that almost no further instructions are needed, curiosity gets you a long way. It may nonetheless be a good idea to first consult the Desmos [Getting Started](https://help.desmos.com/hc/en-us/articles/4406040715149-Getting-Started-Desmos-Graphing-Calculator){target="_blank"} page to get acquainted with the way the calculator works and renders functions and other objects.
+
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+::::: {.grid}
+
+:::: {.g-col-6} 
+
+@fig-windmap shows a three-dimensional object in a two-dimensional graph. It depicts a meteorological wind map where the horizontal and vertical coordinates relate to geographical location, and the third dimension is wind force, indicated by color coding. The colors range from light green to dark orange with increasing wind force. The colored areas, representing areas of different wind force, are demarcated by contour lines. Along such a line the wind force is constant; moving away from a line leads to areas of higher or lower wind force. 
+::::
+
+:::: {.g-col-6} 
+
+<!-- Figure:........................................................... -->
+
+![Windmap Showing Storm Making Landfall](images/windmap.png){.lightbox #fig-windmap}
+
+<!-- End of Figure..................................................... -->
+
+::::
+
+:::::
+<!-- End Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+
+
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+::::: {.grid}
+
+:::: {.g-col-6} 
+
+@fig-desmos shows a Desmos graph that could be used in a stylized model for @fig-windmap. 
+
+::: {.callout-tip title="Movable Point"}
+
+We offer users a way to easily manipulate graphs, either directly on the graph when clicking a 'movable point' (a visibly large dot), or by way of using parameter sliders and toggles. 
+
+:::
+
+::: {.callout-tip title="Edit Graph"}
+
+By clicking on "edit graph on desmos" in the lower-right corner of the graph, users can edit the equation and hence explore how the shape of the mathematical function behaves when the underlying equation is changed, or how rendering (colors, line thickness, axes numbers and labels, etc.) can be altered.
+
+:::
+
+
+::::
+
+:::: {.g-col-6} 
+
+<!-- Figure:........................................................... -->
+
+:::{#fig-desmos}
+```{=html}
+<iframe src={{< var desmos-fig-desmosplaygraph >}} width="500" height="500" style="border: 1px solid #ccc" ></iframe>
+```
+
+Modeling Using Desmos Graphs
+
+:::
+<!-- End of Figure..................................................... -->
+
+
+::::
+
+:::::
+<!-- End Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+
+
+<!-- CHAPTER ********************************************************** -->
+# Notation {#sec-ch:notation}
+<!-- CHAPTER ********************************************************** -->
+
+<!-- SECTION ********************************************************** -->
+## List of Greek Letters {#sec-sn:greek}
+<!-- SECTION ********************************************************** -->
+
+For reference, @tbl-tb:greek gives an overview of letters from the Greek alphabet along with Latin correspondence. Such letters may sometimes be used in formal models representing parameters or other symbols.
+
+
+|      |      |      |      |      |      |      |      |      |      |      |
+|------|------|------|------|------|------|------|------|------|------|------|
+| $\alpha$   |               |   A          |  `alpha   ` |  a     | |   $\nu$      |                 |   N          |  `nu      ` |  n   |
+| $\beta$    |               |   B          |  `beta    ` |  b,v   | |   $\xi$      |                 |  $\Xi$       |  `xi      ` |  x,ks|
+| $\gamma$   |               |  $\Gamma$    |  `gamma   ` |  g,y   | |    o         |                 |   O          |  `omicron ` |  o   |
+| $\delta$   |               |  $\Delta$    |  `delta   ` |  d     | |   $\pi$      |   $\varpi$      |  $\Pi$       |  `pi      ` |  p   |
+| $\epsilon$ | $\varepsilon$ |   E          |  `epsilon ` |  e     | |   $\rho$     |   $\varrho$     |   P          |  `rho     ` |  r   |
+| $\zeta$    |               |   Z          |  `zeta    ` |  z     | |   $\sigma$   |   $\varsigma$   |  $\Sigma$    |  `sigma   ` |  s   |
+| $\eta$     |               |   H          |  `eta     ` |  i     | |   $\tau$     |                 |   T          |  `tau     ` |  t   |
+| $\theta$   | $\vartheta$   |  $\Theta$    |  `theta   ` |  th    | |   $\upsilon$ |                 |  $\Upsilon$  |  `upsilon ` |  y,v |
+| $\iota$    |               |   I          |  `iota    ` |  i,j   | |   $\phi$     |   $\varphi$     |  $\Phi$      |  `phi     ` |  f   |
+| $\kappa$   |               |   K          |  `kappa   ` |  k     | |   $\chi$     |                 |   X          |  `chi     ` |  ch  |
+| $\lambda$  |               |  $\Lambda$   |  `lambda  ` |  l     | |   $\psi$     |                 |  $\Psi$      |  `psi     ` |  ps  |
+| $\mu$      |               |   M          |  `mu      ` |  m     | |   $\omega$   |                 |  $\Omega$    |  `omega   ` |  o   |
+
+: Greek Letters {#tbl-tb:greek .striped .hover}
+
+
+<!-- SECTION ********************************************************** -->
+## Notation and Conventions in Economics
+<!-- SECTION ********************************************************** -->
+
+There is no such thing as standard notation in economics. There are no uniformly accepted notational conventions on what to call certain economic magnitudes. Hence, always define your symbols. One convention is to flip around the graph of a demand or supply function, which you need to get used to. More on this in @sec-ssn:graphdemand.
+
+<!-- CHAPTER ********************************************************** -->
+# Math Review {#sec-ch:math}
+<!-- CHAPTER ********************************************************** -->
+
+<!-- SECTION ********************************************************** -->
+## Basics of Algebra and Geometry {#sec-sn:basics}
+<!-- SECTION ********************************************************** -->
+
+<!-- SUBSECTION ------------------------------------------------------- -->
+### Basic Operators {#sec-ssn:ops}
+<!-- SUBSECTION ------------------------------------------------------- -->
+
+Operators are some of the most basic elements of algebra. In the expression $1+2$, the operator is $+$. Anyone knows how to calculate with elementary arithmetic operators '$+$', '$-$',  '$\times$', and '$/$' on real numbers. To this short list, we may want to add raising a number to a power (exponentiation). In more lengthy expressions, such as $$-7 \times 3^2 + 2^{3+2}/2 $$ there are many operators and we need to know where to start. There are simple rules that relate to *operator precedence* telling us what has priority over what.
+
+::: {#nte-PEMDAS .callout-note icon="false" title="PEMDAS"}
+
+There is a simple mnemonic that helps us keep track of the order: PEMDAS, for parentheses, exponentiation, multiplication, division, addition and subtraction (or: Please excuse my dear Aunt Sally). Keep in mind that multiplication and division are of the same order of precedence, as are addition and subtraction.
+
+:::
+
+
+<!-- SUBSUBSECTION ---------------------------------------------------- -->
+#### Sum Operator {#sec-sssn:sum}
+<!-- SUBSUBSECTION ---------------------------------------------------- -->
+
+Sum operators are being used frequently, so it is a good idea to get used to them. The sum operator $\sum$ is nothing else than a '$+$' for many, indexed, elements. 
+
+::: {#cau-sum .callout-caution icon="false" title="Sum Operator"}
+
+Instead of writing the sum $s$ as
+$$s = 3+6+9$$
+we can equivalently use the notation
+$$s = \sum_{i=1}^3 (3i).$$
+
+Since $3$ is a common multiplier, we can pull it out of the sum and write equivalently
+$$s = 3\sum_{i=1}^3 i.$$
+
+:::
+
+\bigskip
+
+The index counter $i$ is just a running number. It runs from a starting value to a terminal value, both indicated below and above the operator. 
+$$
+\sum_{i=1}^n a_i=
+\sum_{j=1}^n a_j=
+\sum_{k=1}^n a_k=
+\sum_{\mathit{jellyfish}=1}^{n} a_{\mathit{jellyfish}}.
+$$
+Finally, it is a matter of taste to write $\sum_{i=1}^{n} a_i$ or $\sum_{i=1}^{i=n} a_i$.
+
+If $n$ is not given, the convention is that the index refers to all possible elements (which depends on context).
+
+Everything that is not indexed inside the sum can be taken outside the sum.  Note that $c_j$ is just a constant; its index $j$ is irrelevant, but we put it there to make sure you understand that $c_j$ does not vary with $k$.
+
+::: {#nte-index .callout-note icon="false" title="Index Limits"}
+
+Confusion might arise when omitting index limits. Consider $\sum_{i=1}^n a^{i-1} = \sum_{i=0}^{n-1} a^{i}$. This is not necessarily equivalent to $\sum_i a^i$ where limits are omitted, so some care is needed.
+
+:::
+
+
+<!-- SUBSUBSECTION ---------------------------------------------------- -->
+#### Difference Operator {#sec-sssn:diff}
+<!-- SUBSUBSECTION ---------------------------------------------------- -->
+
+$\Delta$ is an operator that signifies the difference between two values of a variable. If we write $\Delta x$ we select two values of $x$, $x_0$ and $x_1$, and define $$\Delta x = x_1-x_0.$$ For this notation to be meaningful, there needs to be an understanding what the index means. $x$ may be a series in a certain order, say, a time series with values $x_{1}, x_{2}, \ldots, x_{t}, \ldots, x_{T}$, then $\Delta_t x = x_{t}-x_{t-1}$ is the change in $x$ over time between two measurements at $t-1$ and $t$. $\Delta$ comes in handy for differentiating functions, on which more below (@sec-sn:1stder).
+
+<!-- SUBSUBSECTION ---------------------------------------------------- -->
+#### Product Operator {#sec-sssn:prod}
+<!-- SUBSUBSECTION ---------------------------------------------------- -->
+
+The product operator is denoted with the the symbol $\prod$ and defined through
+$$\prod_{i=1}^n a_i = a_1 \cdot a_2  \cdot a_3  \cdot a_4 \cdots a_n.$$
+
+
+<!-- SUBSUBSECTION ---------------------------------------------------- -->
+####  Exponentiation: Power Operator {#sec-sssn:power}
+<!-- SUBSUBSECTION ---------------------------------------------------- -->
+
+In the special case that all terms $a_i$ are identical, $a_i=a$, we can write
+$$\prod_{i=1}^n a = a^n.$$
+This reads '$a$ raised to the power of $n$'.
+Here, $a$ is the base, and $n$ is the exponent. 
+Note that on calculators and computers the hat symbol is used to indicate exponentiation, as in  `a^n`, but in written work this notation is unusual.
+
+Special cases obtain for $n=0$, $n=1$, and $n=-1$
+$$a^0 = 1;\qquad a^1 = a;\qquad a^{-1} = \frac{1}{a}.$$
+Further, we have for $a=0$ and $a=1$ the definitions
+$$0^n = 0;\qquad 1^n = 1.$$
+
+$n$ is often an integer, but it need not be. Some of the useful rules to remember when dealing with exponentiation are:
+
+* summation of exponents with common base: $$a^{m+n} = a^m \cdot a^n$$
+* multiplication of base with common exponent $$a^n \cdot b^n = (a\cdot b)^n$$
+* power to the power: multiplication of powers $$(a^n)^m = a^{n\cdot m}.$$
+
+
+\bigskip
+
+These rules, combined with the special cases from above, now give rise to a whole range of possibilities. For instance,
+
+* $$a^{-n} = \frac{1}{a^n}$$
+* $$a^{m-n} = \frac{a^m}{a^n}$$
+* $$a^{n}a^{-n} = 1.$$
+
+Since $n$ (or $m$) can be a (positive or negative) fraction, we can use the power notation for roots, as in
+$$a^{\frac{1}{2}} = \sqrt{a};\qquad
+a^{-\frac{1}{3}} = \frac{1}{\sqrt[3]{a}};\quad \mbox{and}\quad
+a^{\frac{m}{n}} = \sqrt[n]{a^m}.$$
+
+
+<!-- SUBSECTION ------------------------------------------------------- -->
+### Expanding Brackets and Binomial Expressions {#sec-ssn:parentheses}
+<!-- SUBSECTION ------------------------------------------------------- -->
+
+Many algebraic expressions involve brackets. Just stick to the basic arithmetic rules to multiply out every term outside of a bracket with all terms inside. This also applies to nested and multiple brackets.
+
+\bigskip
+
+Specific cases of use of parentheses are involved in binomial equations. Here are three very popular ones for two variables $a$ and $b$ involving square terms.
+
+\begin{eqnarray}
+ \label{eq:bin1}
+(a+ b)^2&=&a^2+ 2ab+b^2 \\
+ \label{eq:bin2}
+(a-b)^2&=&a^2-2ab+b^2 \\
+ \label{eq:bin3}
+ (a^2-b^2)&=&(a+b)\cdot(a-b)
+\end{eqnarray}
+
+
+<!-- SUBSECTION ------------------------------------------------------- -->
+### Geometry {#sec-ssn:geo}
+<!-- SUBSECTION ------------------------------------------------------- -->
+
+
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+::::: {.grid}
+
+:::: {.g-col-6}
+
+Simple geometry is needed to calculate areas in diagrams, and the most important shapes are angular (tri- or rectangular). A convenient shape to understand is that of a trapezoid  (a convex shape with four sides, among which two parallel ones), because it covers some special cases. Figure @fig-trapezoid shows such a shape. Elementary algebra is enough for calculating the area of a trapezoid. It is easily obtained as $$A = \frac{1}{2} [b_1+b_2] \times h$$ where $h$ is height and $b_1$ and $b_2$ are the upper and lower bases.
+
+::::
+
+:::: {.g-col-6}
+
+
+::: {#fig-trapezoid}
+
+```{=html}
+<iframe src="https://www.desmos.com/geometry/hftqn4w8ce?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
+
+```
+
+Trapezoid
+
+:::
+
+::::
+
+::::: 
+
+<!-- End Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+
+What is important is to measure height $h$ as orthogonal (90$^\circ$) to the bases $b$. The formula multiplies the height with the *average* base length. There are several special cases:
+
+* The parallelogram is a trapezoid with two pairs of parallel sides and has $b_1=b_2=b$, so the area is $A = b \times h$.
+* The rectangle is a rectangular parallelogram with area $A = b \times h$.
+* The square is a rectangle with $b=h$ and area $A = h^2$.
+* The triangle has $b_1=0$ and $b_2=b$, yielding $A = \frac{1}{2}b\times h$.
+
+::: {.callout-tip icon="false" title="Play!"}
+
+Press the downward-pointing $\gg$ symbol to get the graph into full view. Then, slide dots C and D and check the above (do the calculation)!
+
+:::
+
+One application where economists encounter areas in geometric figures concerns calculating welfare loss triangles, when supply and demand curve are linear. Both demand and supply are quantities as functions of prices. 
+
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+::::: {.grid}
+
+:::: {.g-col-6}
+
+::: {#cau-dwl .callout-caution icon="false" title="Calculating the Welfare Loss Triangle."}
+Consider demand and supply schedules,
+\begin{eqnarray*}
+Q = D(p) &=& 7.5 - p\\
+Q = S(p) &=& -0.5+p.
+\end{eqnarray*}
+The intersection of supply and demand defines the equilibrium, which we can calcuate as
+$$Q^\star = 3.5  \qquad p^\star = 4.$$
+Suppose, that due to some market failure, the actual quantity traded on this market is only $Q_0 = 1$. Then, we can calculate the welfare loss as a triangle 
+$$\frac{1}{2} \cdot \underbrace{(Q^\star-Q_0)}_{b} \times \underbrace{(p_0 - p_0')}_{h} = 0.5 \cdot 2.5 \cdot 5 = 6.25.$$ Hence, the base is vertical. This is illustrated in Figure @fig-dwl. Shift the colored movable points for a new set of supply/demand curves to practice. Count the squares to check.
+:::
+
+
+::::
+
+:::: {.g-col-6}
+
+::: {#fig-dwl}
+
+```{=html}
+<iframe src="https://www.desmos.com/calculator/jw2e51dtm9?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
+``` 
+
+Welfare Loss Triangle
+
+:::
+
+::::
+
+:::::
+<!-- End Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+
+
+<!-- SECTION ********************************************************** -->
+## Functions of One Variable {#sec-sn:functionsone}
+<!-- SECTION ********************************************************** -->
+
+<!-- SUBSECTION ------------------------------------------------------- -->
+### Functions and Equations {#sec-ssn:funeq}
+<!-- SUBSECTION ------------------------------------------------------- -->
+
+We describe the relation between two quantities $x$ and $y$ by a function $f$ that takes $x$ as input and $y$ as output by the equation $$y=f(x).$$ $x$ is sometimes referred to as 'independent variable' and $y$ as 'dependent variable' as $y$ depends through $f$ on $x$. 
+
+$f(\cdot)$ is often specified using an algebraic expression, for instance,
+$$f(x) = \sqrt{x}.$$
+The set of values for $x$ is the domain, the set of values for $y$ is the range.
+
+Note: $x$ and $y$ are placeholders, we could use other symbols instead. Likewise, economists use a lot of functions, very few of them are denoted $f()$.
+
+<!-- SUBSECTION ------------------------------------------------------- -->
+### Graphs of Functions {#sec-ssn:graphs}
+<!-- SUBSECTION ------------------------------------------------------- -->
+
+The graph of $y=f(x)$ can be depicted in a (two-dimensional) Cartesian coordinate system with values of $x$ on the horizontal values of $y$ on the vertical axis. To graph it exactly and to scale, we need to specify the exact algebraic expression for $f$ and all its parameter values.
+
+\bigskip
+
+::: {#cau-lindemand .callout-caution icon="false" title="Linear Demand Curve."}
+
+An important functional relation in economics is that of a demand equation or demand curve,
+that expresses quantity $Q$ as a function $D$ of price $p$
+\begin{equation}
+\label{eq:dofp}
+Q = D(p).
+\end{equation}
+The notation $Q = D(p)$ is generic. Without a functional *specification*, we cannot possibly use the function in calculations nor can we plot it exactly and to scale on paper or on a computer.
+
+\bigskip
+
+If we specify $D()$ as
+\begin{equation}
+\label{ex:slope}
+Q = D(p) = 10-5p,
+\end{equation}
+we can plot \eqref{ex:slope} in a Cartesian coordinate system with $p$ and $Q$ on the axes. \eqref{ex:slope} is *linear* in $p$. The graph of a linear function is a straight line, characterized by two parameters, an intercept and a slope. In \eqref{ex:slope} the intercept is 10 (when $p=0$, that is, where it cuts the $Q$ axis), the slope is $-5$. In @cau-demecon below, we discuss the graph and show it in @fig-demecon.
+
+:::
+
+
+\bigskip
+
+Often, we are not interested in special cases, but want to illustrate a more general point. So, instead of exactly specifying a functional form, we may instead characterize the function in general terms. When economic theory derives demand functions from first principles, one may  try to characterize the function in terms of concepts such as continuity, monotonicity, differentiability, convexity, etc.
+
+
+<!-- SUBSECTION ------------------------------------------------------- -->
+### Continuity and Monotonicity {#sec-ssn:cont}
+<!-- SUBSECTION ------------------------------------------------------- -->
+
+Loosely speaking, a function is continuous if it is smooth at all elements of
+its domain in the sense that a small movement at one element of the domain does
+not cause a big jump in the range. If the function's domain is discontinuous, the function is also not continuous.
+
+If a function is differentiable (everywhere), it is (globally) continuous. 
+
+:::::: {#cau-cont .callout-caution icon="false" title="Domain Discontinuity"}
+
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+::::: {.grid}
+
+:::: {.g-col-6}
+
+@fig-cont shows an example of the non-continuous function 
+
+$$ f\left(x\right)=\frac{\left(x-1\right)^{2}}{\left(x-1\right)}. $$
+
+To see this clearly, slide the green dot slowly along the horizontal axis to find that the function value is *undefined* when $x_0=1$, so it has a hole at that point.
+
+Expanding the square term using \eqref{eq:bin3} gives
+
+$$ f\left(x\right)=\frac{\left(x+1\right)\left(x-1\right)}{\left(x-1\right)} $$
+
+which suggests that the term $\left(x-1\right)$ can be removed. Then, the discontinuity is said to be removable. What remains is $f(x)=x+1$ which is easy to spot as being linear.
+
+::::
+
+:::: {.g-col-6}
+
+<!-- Figure:........................................................... -->
+
+::: {#fig-cont}
+
+```{=html}
+<iframe src="https://www.desmos.com/calculator/f64kzvcs9q?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
+```
+
+Discontinuous Function
+:::
+<!-- End of Figure..................................................... -->
+
+::::
+
+::::: 
+<!-- END Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+
+::::::
+
+A function is monotonic if it is either entirely nonincreasing or nondecreasing. 
+
+:::::: {#tip-mono .callout-tip icon="false" title="Monotonicity?"}
+
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+::::: {.grid}
+
+:::: {.g-col-6}
+
+@fig-mono depicts function 
+
+$$f(x)=x^a,\qquad a=0,1,\ldots$$
+
+You can slide the green dot and try to answer for which values of $a$ the function is
+
+* non-monotonic
+* strictly monotonic
+* weakly monotonic (i.e., not strictly monotonic but not non-monotonic)
+
+::::
+
+:::: {.g-col-6}
+
+<!-- Figure:........................................................... -->
+
+::: {#fig-mono}
+
+```{=html}
+<iframe src="https://www.desmos.com/calculator/vuwxkq7eyn?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
+```
+
+Monotonic Function?
+:::
+<!-- End of Figure..................................................... -->
+
+::::
+
+::::: 
+<!-- END Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+
+::::::
+
+\bigskip
+
+There are important links between continuity and monotonicity with differentiability, on which more in @sec-sn:1stder. For instance, continuity is a necessary but not sufficient condition for differentiability. A function is monotonic if its first derivative (which need not be continuous) does not change sign.
+
+
+<!-- SUBSECTION ------------------------------------------------------- -->
+### Economic Application: Graph of Demand Function {#sec-ssn:graphdemand}
+<!-- SUBSECTION ------------------------------------------------------- -->
+
+What is unusual in economics is the 'inversion' of the graph of a demand function. Demand is typically written as quantity $Q$ being a function $D$ of price $p$: $Q=D(p)$. Its  graph is 'inverted' relative to what most people are used to (domain (origin $p$) is on the vertical axis, range (target $Q$) on the horizontal axis).
+
+\bigskip
+
+:::::: {#cau-demecon .callout-caution icon="false" title="Slope of a linear demand function."}
+
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+::::: {.grid}
+
+:::: {.g-col-6}
+
+Recall @cau-lindemand where it said that the slope in \eqref{ex:slope} was '$-5$'. This is a mathematical formulation. A slope of $-5$, when the same units are used on both axes, is pretty steep. If you now plot the graph as economists would ($p$ on the vertical axis, $Q$ on the horizontal one), you'll notice that it looks pretty flat. The reason is that, as it were, you'd flip the function around before drawing the graph:
+$$p = 2 - \frac{1}{5} Q.$$ This can cause a lot of confusion if you are not used to it.
+
+::::
+
+:::: {.g-col-6}
+
+::: {#fig-demecon}
+
+```{=html}
+<iframe src="https://www.desmos.com/calculator/nkfnyulndm?embed" width="500" height="250" style="border: 1px solid #ccc" frameborder=0></iframe>
+```
+
+Demand Function, Drawn the Economist's Way
+
+:::
+
+::::
+
+:::::
+<!-- End Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+
+::::::
+
+For many model applications, it is necessary to first derive the *inverse demand function* and express price as a function of quantity, $p = P(Q).$  For the linear demand function $D(p) = a - bp$, the inverse demand function is $$P(Q) = \frac{a}{b}-\frac{1}{b}\cdot Q.$$ Since $Q$ (domain) stays on the horizontal axis, and $p$ (range) stays on the vertical axis, the graph of the demand function and of the inverse demand function *coincide*. 
+
+
+::: {#nte-absc .callout-note icon="false" title="Axes labeling"}
+
+In context of an economic model it may perhaps be better to avoid referring to $x$-axis and $y$-axis, especially when the symbols $x$ and $y$ are not defined in the economic model. For instance, for a demand curve we could refer to the $p$- and the $Q$-axes if these denote price and quantity as in (\ref{ex:slope}).
+
+More confusingly, the economic model may have a symbol $y$ in it and the graph may depict that quantity on the horizontal axis. Referring to the vertical axis as $y$-axis is then at least ambiguous.
+
+Sloppy work often omits relevant labels on axes and objects in a graph. Many things can go wrong here, in particular when there is no strong convention on how to draw the picture. Always properly label all axes and all elements of an economic graph.
+
+:::
+
+
+<!-- SUBSECTION ------------------------------------------------------- -->
+### Convexity and Concavity {#sec-sn:conc}
+<!-- SUBSECTION ------------------------------------------------------- -->
+
+
+Consider a function $f(x)$ and two values of $x$, $x_1$ and $x_2$. Then take some number $\lambda \in [0, 1]$ (e.g., $\lambda=0.5$).
+Then calculate the mixture or weighted average $\lambda x_1 + (1-\lambda) x_2$.
+We say that $f$ is convex if
+$$f(\lambda x_1 + (1-\lambda) x_2) \le \lambda f(x_1) + (1-\lambda) f(x_2).$$
+$f$ is *strictly* convex if $<$ applies instead of $\le$. $f$ is concave if 
+$$f(\lambda x_1 + (1-\lambda) x_2) \ge \lambda f(x_1) + (1-\lambda) f(x_2).$$
+Note that $f$ is convex if $-f$ is concave (and reverse). 
+
+\smallskip
+
+Graphically, if we take two points on the function and connect them with a straight line segment, 
+
+* all points in between on a strictly concave curve lie above the straight line segment
+* all points in between on a strictly convex curve lie below the straight line segment.
+
+\bigskip
+
+
+:::::: {#cau-conc .callout-caution icon="false" title="Concavity Illustrated"}
+
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+::::: {.grid}
+
+:::: {.g-col-6}
+
+@fig-conc shows the example of graph of a concave function $$f(x)=x^a$$ for $a=0.5.$ The figure shows two $x$ values $x_1$ and $x_2$ and four colored hollow points. The blue points are connected by a straight line. The orange point is on that connecting line and determined by the mixture parameter $\lambda.$ Its $y$-value is $\lambda f(x_1) + (1-\lambda) f(x_2)$. The green point is on the function, its $y$-value is $f(\lambda x_1 + (1-\lambda) x_2)$. Hence, the green point lies above the orange point at all values of $\lambda$.
+
+::: {.callout-tip icon="false" title="Play!"}
+
+Shift $\lambda$ on the horizontal axis and verify that the shown function is indeed strictly concave for all values of $\lambda$. Click on "edit graph on Desmos" to explore at what parameter value $a$ of the shown function, the graph is strictly convex. What borderline cases are there?
+
+:::
+
+::::
+
+:::: {.g-col-6}
+
+::: {#fig-conc}
+
+```{=html} 
+<iframe src="https://www.desmos.com/calculator/eyyn7llcoj?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
+```
+Exploring Concavity and Convexity
+
+:::
+
+::::
+
+:::::
+<!-- END Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+
+::::::
+
+<!-- SUBSECTION ------------------------------------------------------- -->
+### Logarithm and Exponential Function {#sec-sn:logs}
+<!-- SUBSECTION ------------------------------------------------------- -->
+
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+::::: {.grid}
+
+:::: {.g-col-6}
+
+The natural logarithm, $$\ln(x)$$ is illustrated as the red curve in @fig-ln. It is only defined for $x>0$. When $x\to 0$, it has the vertical axis as its asymptote (i.e., it moves along the vertical axis $\to -\infty$). It is continuous and monotonic and concave and has other convenient properties. The natural logarithm has a *base* of $e$ (Euler's constant, $e\approx 2.718282$). This means that when we evaluate $\ln(x)$ at its base ($x=e$), we get 1. In addition, $\ln(1)=0$, so the function goes through the two points $(1,0)$ and $(e,1)$.
+
+Its inverse is the exponential function, $e^x$ or equivalently, $\exp(x)$, depicted as blue dashed line in @fig-ln. It is derived from $\ln()$ as reflection about the 45$^\circ$ line.
+
+\bigskip
+
+::: {.callout-tip icon="false" title="Play!"}
+
+Users may want to click on "edit graph on Desmos" to show that the graphical inverse of $\ln(x)$ indeed coincides with the $\exp(x)$ function.
+
+:::
+
+
+::::
+
+:::: {.g-col-6}
+
+::: {#fig-ln}
+
+```{=html}
+<iframe src="https://www.desmos.com/calculator/pes0ojqezg?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
+```
+
+Natural Logarithm and its Inverse, the Exponential Function
+:::
+
+::::
+
+:::::
+
+<!-- End Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+
+\bigskip
+
+There are certain rules to be obeyed (or rather: be kept in mind) when working with logarithms, and the following example illustrates a couple of important cases.
+
+\bigskip
+
+::: {#cau-log .callout-caution icon="false" title="Natural Logarithm."}
+The logarithm of a product of two variables $x_1$ and $x_2$ equals the sum of the logarithms
+        \begin{eqnarray*}
+        \ln(x_1\cdot x_2) &=& \ln(x_1)+\ln(x_2).
+        \end{eqnarray*}
+The logarithm of a ratio of $x_1$ and $x_2$ equals the difference in logarithms
+        \begin{eqnarray*}
+        \ln(x_1/x_2) &=& \ln(x_1)-\ln(x_2).
+        \end{eqnarray*}
+:::
+
+\bigskip
+
+
+:::::: {#nte-logs .callout-note icon="false" title="Generalizations of and Algebraic Rules for Logarithms."}
+
+
+More generally, we have for logarihms of base $b$
+\begin{eqnarray*}
+\log_b(1)   &=& 0\\
+\lim_{x\to 0}\log_b(x)   &=& -\infty\\
+\log_b(b)   &=& 1\\
+\log_b(x\cdot y) &=& \log_b(x) + \log_b(y)\\
+\log_b(x/y) &=& \log_b(x) - \log_b(y)\\
+\log_b(x^y) &=& y \cdot \log_b(x)\\
+\log_b(b^x) &=& x \cdot \log_b(b) = x
+\end{eqnarray*}
+In the second line, $\lim$ denotes 'limit': we let $x$ go close to (but not until) zero. If $b=e$ (Euler's constant), then $\log_e() = \ln()$.
+
+
+::::::
+
+:::::: {#nte-exp .callout-note icon="false" title="Algebraic Rules for Exponential Function."}
+
+::::: {.grid}
+
+:::: {.g-col-6}
+
+As $e^x$ is a power function, the rules set out in @sec-sssn:power apply here as well. Some of the important ones are on the right.
+
+::::
+
+:::: {.g-col-6}
+
+\begin{eqnarray*}
+\exp(x+ y) &=& \exp(x)\cdot \exp(y)\\
+\exp(x- y) &=& \exp(x)/\exp(y)\\
+\exp(0) &=& 1 \\
+\lim_{x\to -\infty}\exp(x)   &=& 0\\
+\exp(1) &=& e \approx 2.718 \\
+\exp(y \cdot \ln(x))&=& x^y.
+\end{eqnarray*}
+
+::::
+
+:::::
+
+::::::
+
+<!-- SECTION ********************************************************** -->
+## Functions of Two or More Variables {#sec-sn:map2}
+<!-- SECTION ********************************************************** -->
+
+<!-- SUBSECTION ------------------------------------------------------- -->
+### Definitions and Argument Lists
+<!-- SUBSECTION ------------------------------------------------------- -->
+
+It is easily conceived that there may be more than just one input determining the output of an economic relationship. If the domain is two-dimensional, we can write
+
+$$y=f(x_1,x_2)$$
+
+where $x_1$ and $x_2$ are dummy arguments ('placeholders') and the value $f$ is assigned to $y$. The above is just a short-hand notation that is meant to imply that the one-dimensional function value is determined by a two-dimensional object. Three and more arguments are dealt with in a similar fashion.
+
+In general, function definitions involve an *argument list*. What is important is the *order* of these arguments within the list. The arguments in themselves are just placeholders and they can be substituted with something else.
+
+::: {#cau-3args .callout-caution icon="false" title="A Function with Three Arguments."}
+
+If $f$ is defined through
+
+$$f(x_1,x_2,x_3) = x_1^2 + b\cdot x_2^3 - \sqrt{x_3}$$
+
+we can also write
+
+$$f(x_3,x_1,x_2) = x_3^2 + b\cdot x_1^3 - \sqrt{x_2}$$
+
+:::
+
+
+<!-- SUBSECTION ------------------------------------------------------- -->
+### Systems of Linear Equations {#sec-sn:sys}
+<!-- SUBSECTION ------------------------------------------------------- -->
+
+Often, we have systems of two, or several linear equations. A solution of a system of equations entails that all variables in the system appear on one side of the set of the equal signs, and we have functions of parameters (but not variables) on the other side of the equal signs. A solution is the value of the variable that makes the equations hold. This is what we seek.
+
+
+:::::: {#cau-system .callout-caution icon="false" title="System of Linear Demand and Supply Curves."}
+
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+::::: {.grid}
+
+:::: {.g-col-6}
+
+In addition to the demand equation in (\ref{ex:slope}) we may consider a supply equation in which again quantity is a function of price. The supply function specification may read, for instance, $Q=S(p)=2+3p$, with intercept 2 and slope 3. So, we have the system of equations
+\begin{eqnarray}
+\label{ex:sys}
+Q &=& 10-5p \\
+\label{ex:sys2}
+Q &=& 2 + 3p.
+\end{eqnarray}
+We now have two linear equations in two unknowns, $p$ and $Q$. @fig-demsup illustrates.
+
+
+In order to solve, we need to express both variables $Q$ *and* $p$ in terms of the coefficients. One way of going about it is to rewrite the algebraic expressions, and for instance, equate supply and demand equations, both as functions of price, as in $$10-5p=2 + 3p.$$ 
+
+::::
+
+:::: {.g-col-6}
+
+It should be easy to see that this is equivalent to $8=8p$, and hence to $p=1$. Filling this into either demand or supply equation gives $Q=5$ and the complete solution is therefore
+\begin{eqnarray*}
+p^\star &=& 1 \\
+Q^\star &=& 5.
+\end{eqnarray*}
+
+
+::: {#fig-demsup}
+
+```{=html}
+<iframe src="https://www.desmos.com/calculator/lwaprfcw6y?embed" width="500" height="250" style="border: 1px solid #ccc" frameborder=0></iframe>
+```
+
+Demand, Supply, and Equilibrium
+
+:::
+
+::::
+
+:::::
+<!-- End Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+
+::::::
+
+
+<!-- SUBSECTION ------------------------------------------------------- -->
+### Variables and Parameters in Economic Functions and Equations {#sec-sn:functionecon}
+<!-- SUBSECTION ------------------------------------------------------- -->
+
+The market demand function has been introduced earlier as $Q=D(p)$ relating, for a single good, the total quantity demanded by all consumers to the good's price. However, a demand function may depend on many other things. Consider the quantity demanded $q$ of a single consumer. This may depend on the prices of other goods (the price of apples depends on the price of bananas), or the consumer's income. We called all inputs and outputs of a function variables, but, in fact, we could treat some magnitudes as fixed parameters.
+
+What is a variable and what is a parameter in an economic model may then depend on the context. For instance, we can interpret the function
+\begin{equation}
+\label{eq:dofpy}
+q = D(p, y)
+\end{equation}
+as a relation between quantity demanded and income $y$, while we treat the price as parameter. This can be useful, if we want to study what quantities consumers with different incomes buy in the same month (where all consumers face the same, fixed price for the good in question).
+
+A specification for (\ref{eq:dofpy}) might be
+
+$$D:\quad q = 10\sqrt{y} - 2p.$$
+
+or, slightly more general:
+
+$$D:\quad q = \alpha\sqrt{y} - \beta p$$
+
+where $\alpha$ and $\beta$ are constants (parameters). Suppose $y=1$ and $p=5$, what is $q$? The answer is: $q=\alpha-5\beta$. This is the complete answer, since the variable of interest, $q$, is expressed in terms of everything else that is known (the constants). Without having concrete numeric values for $\alpha$ and $\beta$, this is all we can say.
+
+\bigskip
+
+::: {#nte-greek .callout-note icon="false" title="Parameters and Greek Letters."}
+
+It may be tempting to interpret Greek symbols, that are used frequently, as parameter in an economic model. Often, this will be the case. But it might not be. Working with economic models takes some discipline---you need to make clear to yourself what is fixed and what varies.
+
+:::
+
+\bigskip
+
+In many instances, it is customary to refer to a class of particular functions that differ from each other by values of parameters. This is often done in the context of, say, production functions or utility functions.
+
+::: {#cau-prodf1 .callout-caution icon="false" title="Generic Production Function."}
+
+A production function relates the quantities of capital $K$ and labor $L$ used to produce output $q$,
+
+$$q = f(K,L)$$
+
+It is a mathematical description of technology available at a firm. A production function that also uses human capital $H$ as third input will be written
+
+$$q = f(K,L,H).$$
+
+(all quantities must be non-negative.)
+
+:::
+
+::: {#cau-cobbd .callout-caution icon="false" title="Cobb-Douglas Production Function."}
+
+More specifically, Cobb Douglas is a very popular specification. The square root function is one special case,
+
+$$q = f(K,L) = \sqrt{K\cdot L}.$$
+
+Sometimes, the following generalization is being used:
+
+$$q = f(K,L) = A \cdot K^\alpha \cdot L^\beta$$
+
+where $A$, $\alpha$ and $\beta$ are parameters (fixed constants).
+
+:::
+
+
+<!-- SUBSECTION ------------------------------------------------------- -->
+### 3D Graphing and Graphing of Level Curves {#sec-ssn:graphisoq}
+<!-- SUBSECTION ------------------------------------------------------- -->
+
+
+An expression like this
+\begin{equation}
+\label{eq:fsqrt}
+f(x,y) = \sqrt{x\cdot y}
+\end{equation}
+is a 3-dimensional object, since we have 2 input variables and one output variable. It is a very regular-looking function, fully symmetric and in many respects well-behaved. @fig-3D shows a 3D version of this function as a three-dimensional surface. The figure also shows level curves at different levels of output (in the vertical direction). Along a level curve, output is constant. Hence, a level curve shows all different combinations of $x$ and $y$ that yield the same level of output. In production theory, the level curves are called isoquants (the Greek prefix *iso* meaning 'equal').
+
+\smallskip
+
+If we project the level curves onto the 2-dimsional $x\times y$ plane, we get a level curve map (view from above). This level curve is actually nothing but a 2-dimensional representation of the 3-dimensional original function. Level curve or contour maps are very similar to a topographic hiking map with elevation contours. 3D objects are harder to graph, however, certainly with pen and paper. That's one reason why you almost never see them in economics, except here.
+
+\smallskip
+
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+::::: {.grid}
+
+:::: {.g-col-6}
+
+::: {.callout-tip title="Play!"}
+You may want to click on the $\ll$ symbol in @fig-3D, and close the control panel to have a larger figure. You can turn the figure in three dimensions while clicking it, and you can look at it from any angle. Reload page to reset. You may then want to click on the $\gg$ symbol and change the functional form of the function, from initially $\sqrt{x\cdot y} = (x\cdot y)^{\frac{1}{2}}$ to $(x\cdot y)^{a}$ and insert a slider for $a$. Then, use two sliders, one for $a$ and another one for $b$ in the function $x^a \cdot y^b$. This allows you to study all kinds of shapes covered by the Cobb Douglas specficiation shown in @cau-cobbd.
+::: 
+
+::::
+
+:::: {.g-col-6}
+
+<!-- Figure:........................................................... -->
+
+:::{#fig-3D}
+
+```{=html}
+<iframe src={{< var desmos-fig-3Dutil >}} width="500" height="500" style="border: 1px solid #ccc" ></iframe>
+```
+
+3D Function and 2D Level Curves
+
+:::
+<!-- End of Figure..................................................... -->
+
+::::
+
+:::::
+<!-- End Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+
+
+
+<!-- SUBSECTION ------------------------------------------------------- -->
+### Graphing Demand as Function of Price and Income
+<!-- SUBSECTION ------------------------------------------------------- -->
+
+Many graphs we draw are actually two-dimensional depictions of higher-dimensional objects. For instance, a demand function relates the quantity demanded not only to  the price of the good, but also on the consumers' incomes $y$ as in \eqref{eq:dofpy}. Suppose, we cannot or do not want to draw a 3D picture, then, similar to level curves, we can draw the graph many times for many different income levels.
+
+:::::: {#cau-shift .callout-caution icon="false" title="Shifting the Demand Curve."}
+
+Start with specfication
+$$D:\quad q = 10\sqrt{y} - 2p,$$
+and consider four income levels, say, $y=1$, $y=4$, $y=9$, and $y=16$. 
+
+Then we can index demand on income and put a subscript on (\ref{eq:dofp}), so we treat $y$ as a parameter:
+\begin{eqnarray*}
+q &=& D(p, y=1) = D_1(p)\\
+q &=& D(p, y=4) = D_4(p)\\
+q &=& D(p, y=9) = D_{9}(p)\\
+q &=& D(p, y=16) = D_{16}(p)
+\end{eqnarray*}
+
+This is shown in @fig-demfam where lower incomes have a lighter shade of red. For income level $y=4$, $D_4()$ applies. When we then vary the price $p$ consumers will demand different quantities $q$. We do not change income as that happens. That is, we always look at the same demand curve, $D_4()$. Changing the price results in a movement *along the curve*.
+
+Increasing income, means we select a higher demand function. While keeping the price unchanged, say at price $p_0$, the consumer demands higher quantities. This change results in a change *of the curve*. @fig-shift illustrates this point.
+
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+::::: {.grid}
+
+:::: {.g-col-6}
+
+::: {#fig-demfam}
+
+```{=html}
+<iframe src="https://www.desmos.com/calculator/ci17vrsmqt?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
+```
+
+Family of Demands, by Income
+
+:::
+
+::::
+
+:::: {.g-col-6}
+
+::: {#fig-shift}
+
+```{=html}
+<iframe src="https://www.desmos.com/calculator/ondikk4oz5?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
+```
+
+Shifting the Curve
+
+:::
+
+::::
+
+:::::
+<!-- End Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+
+::::::
+
+\bigskip
+
+Of course, when we say that $y$ is a parameter, this is in some sense arbitrary. It is conceivable that income also plays the role of an economic variable. If we were to keep prices fixed and study how the quantity demanded varies with income, we would graph a so-called [Engel]{.smallcaps} curve with quantity and income on the axes. Indeed, the definition \eqref{eq:dofpy} makes no distinction, and we mentioned that the graph of the function would need a three-dimensional representation.
+
+\bigskip
+
+::: {#nte-label2 .callout-note icon="false" title="Labeling."}
+We reiterate that it is always necessary not only to define your symbols but also to label all elements of a graph. The preceding example also made clear once again why it is not a good idea to refer to any of the axes as the $y$-axis, as $y$ is a parameter in the model and not on the axis.
+:::
+
+\bigskip
+
+::: {.callout-important title="Changes Along and Of the Curve"}
+
+Changes in whatever variable is on one of the axes results in a movement *along* the curve, given the curve's definition. Whatever is not on one of the axes can be regarded as a parameter, and parameter changes illustrate a 'movement' *of the curve*.
+
+:::
+
+\bigskip
+
+::: {#tip-graph2 .callout-tip icon="false" title=""}
+Consider a demand curve for a certain good, say, bananas, where $q_b$ denotes the quantity of bananas demanded, $p_b$ denotes the price of bananas, and $y$ denotes income. Also consider that the price of apples, $p_a$, may influence the quantity of bananas demanded. Specify the demand function as: $q_b = 10\sqrt{y} - 2p_b/p_a$. What changes compared to the discussion above, and how can you depict a change in the price of apples?
+:::
+
+<!-- SECTION ********************************************************** -->
+## Analysis of Functions of One Variable {#sec-sn:anal1}
+<!-- SECTION ********************************************************** -->
+
+<!-- SUBSECTION ------------------------------------------------------- -->
+### Analysis and Optimization {#sec-sn:anal}
+<!-- SUBSECTION ------------------------------------------------------- -->
+
+Functional analysis refers to figuring out how a function $y=f(x)$ behaves when we know its definition. One important step is making a picture. But we may want to be more precise and calculate exactly where the function crosses the zero line, where it has a maximum or a minimum, and when it changes slope and shape. The most important step to doing so is to determine the derivative of the function. For the topic of optimization, we may even consider the second derivative. 
+
+Optimization is about either maximizing or minimizing a function. That is, we try to find those values in the domain for which the function value attains its maximum or minimum. The optimization problem may further be restricted in the sense that certain types of constraints are imposed. We need only consider maximization of a function $f$. Minimization of $f$ is easily accomplished by maximizing $-f$. We shall restrict ourselves to local optimization only; global optimization can be ensured by placing additional restrictions on the behavior of the function. 
+
+<!-- SUBSECTION ------------------------------------------------------- -->
+### First Derivative {#sec-sn:1stder}
+<!-- SUBSECTION ------------------------------------------------------- -->
+
+Simply put, the derivative is the slope of the function at a point. We ask: if $x$ changes by 1 'small unit', by how much does $y$ change? 
+
+There is an intuitive way and an easy way of doing things. The intuitive one is to evaluate the function at two values, calculate the difference, and take a ratio. 
+
+\bigskip
+
+::: {#cau-deriv1 .callout-caution icon="false" title="The Intuitive but Cumbersome and Possibly Wrong Way to Obtain a Derivative."}
+
+Consider the function $f(x) = x^2$ and the coordinate $x=0$. 
+
+1. calculate $f(x)$ at two values of $x_0$ and $x_1$ of $x$, say $x_0=0$ and $x_1=1$: $$f(0) = 0\quad \text{and}\quad f(1)=1$$
+1. consider the difference operator  $\Delta$ (@sec-sssn:diff) to calculate the change in $x$, $\Delta x = x_1-x_0$, and the change in $f(x)$, $\Delta f = f(x_1) - f(x_0)$, $$\Delta x=1-0 = 1  \quad \text{and}\quad  \Delta f = 1-0 = 1$$
+1. calculate the ratio, $$\frac{\Delta f}{\Delta x} = \frac{1}{1} = 1$$.
+
+:::
+
+\bigskip
+
+Hence, relating the change in $f$  to $\Delta x$ tells us what we want to know: how does $f$ behave when $x$ changes a little. 
+The example took us through a number of steps, which makes calculation cumbersome, especially if the function evaluation is a bit more complicated than what we have here. Second, the choice of $x_1$ or $\Delta x$ is arbitrary, we could have made it larger or smaller, and chosen any other value. 
+Third, as we'll demonstrate, the answer is imprecise at best and plainly wrong at worst.
+Only if $\Delta x$ is really 'small', we're in business.
+
+Of course, one obvious implication of taking a derivative is that it will depend in general on where (at what value of $x_0$ of $x$) we evaluate $f(x)$.
+
+\bigskip
+
+::: {#cau-slopelin .callout-caution icon="false" title="Slope of a Linear Function."}
+
+When $f()$ is linear, as in $f(x) = a+bx$, then $\dfrac{\Delta f}{\Delta x}=b$. This is clear because
+$f(x_1) = a+bx_1$,
+$f(x_0) = a+bx_0$,
+$\Delta f = b(x_1-x_0)$, and $\Delta x = (x_1-x_0).$
+Thus, the coefficient $b$ is the slope of the linear function, and it actually does not matter what values we choose for $x_1$ and $x_0$. 
+
+:::
+
+\bigskip
+
+
+$\Delta x$ in @cau-slopelin could have been 'big'. However, a linear function is not very general. 
+
+\bigskip
+
+::: {#wrn-differential .callout-warning icon="false" title="Derivative."} 
+
+More generally, the (first) derivative can be defined as
+\begin{equation}
+\label{eq:fprime}
+f'(x) \equiv
+\lim_{\Delta x \to 0} \frac{\Delta f(x)}{\Delta x}
+=\lim_{\Delta x \to 0} \frac{f(x+\Delta x)-f(x)}{\Delta x}
+\quad \text{or}\quad
+\frac{\text{d}y}{\text{d}x} = \frac{f(x+\text{d} x)-f(x)}{\text{d} x}
+\end{equation}
+where $\Delta x$ or $\text{d} x$ is a small number that we add to $x$. 
+
+:::
+
+\bigskip
+
+$\text{d} x$ can be as small as we wish, for instance $0.00001$ is a possibility. This is what we mean by 'small'. It must not be exactly zero, however.
+
+\bigskip
+
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+::::: {.grid}
+
+:::: {.g-col-6} 
+
+Clearly, in general
+
+$$\frac{\Delta f(x)}{\Delta x}
+\neq 
+\lim_{\Delta x \to 0} \frac{\Delta f(x)}{\Delta x}.
+$$
+
+
+The difference is an approximation error. This is illustrated in @fig-derivexample1 for $f(x)=\ln(x+1)$ (the red curve): In this example, $\Delta f/\Delta x$ underestimates the true slope at the initial (blue) point. 
+
+::: {.callout-tip icon="false" title="Play!"}
+
+Click on "edit graph on Desmos" in the lower right corner. There is a slider $d$ that let's you select the size of $\Delta x$. It is originally set to $1$, but you can shift it. As it gets smaller, the error, committed by using $\Delta f/\Delta x$, gets smaller as well. 
+
+If you shift point A, you will be able to see that the size of the approximation error gets larger as A moves to the left. Conversely, on the right, where $f()$ becomes almost linear or flat, the error is not so big. Compare @cau-slopelin.
+
+:::
+
+::::
+
+:::: {.g-col-6} 
+
+::: {#fig-derivexample1}
+
+```{=html}
+<iframe src="https://www.desmos.com/calculator/pmwr6eomvo?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
+```
+
+First Derivative and Approximation Error
+
+:::
+
+::::
+
+:::::
+<!-- End Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+
+
+The functional form of $f(x)$ will determine whether it is easy or difficult to take the derivative using analytical methods. Some of the easy-to-remember results are in @tbl-tb:derivex.
+
+\bigskip
+
+
+|              | $f(x)$                             |  $f'(x)$			 | 
+|--------------|------------------------------------|----------------------------|
+| constant     | $a$                                |  $0$ 			 | 
+| linear       | $a+b\cdot x$                       |  $b$ 			 | 
+| quadratic    | $a+b\cdot x+c\cdot x^2$            |  $b+2c\cdot x$ 		 | 
+| cubic        | $a+b\cdot x+c\cdot x^2+d\cdot x^3$ |  $b+2c\cdot x+3d\cdot x^2$ | 
+| exponential  | $\exp(x)$                          |  $\exp(x)$ 		 | 
+| logarithm    | $\ln(x)$                           |  $\dfrac{1}{x}$		 | 
+
+: Examples of (First) Derivatives {#tbl-tb:derivex .striped .hover}
+
+\bigskip
+
+
+@tbl-tb:derivgen gives additional generalizations when we have functions that are combined. 
+
+\bigskip
+
+|              | $f(x)$                            |  $f'(x)$			                                        | 
+|--------------|-----------------------------------|--------------------------------------------------------------------|
+| power        | $x^n$                             | $n\cdot x^{n-1}$							|
+| polynomial   | $\sum_{j=1}^n a_j\cdot x^j$       | $\sum_{j=1}^n a_j\cdot j\cdot x^{j-1}$				|
+| sum          | $g(x)+h(x)$                       | $g'(x) + h'(x)$							|
+| product      | $g(x)\cdot h(x)$                  | $g'(x) \cdot h(x) + g(x) \cdot h'(x)$				|
+| chain rule   | $g(h(x))$                         | $g'(h(x)) \cdot h'(x)$						|
+| quotient     | $\displaystyle \frac{g(x)}{h(x)}$ | $\displaystyle \frac{g'(x)\cdot h(x) - g(x) \cdot h'(x)}{[h(x)]^2}$|
+
+: Rules of Derivation: General Case {#tbl-tb:derivgen .striped .hover}
+
+
+<!-- SUBSECTION ---------------------------------------------------- -->
+### Elasticity {#sec-ssn:elas}
+<!-- SUBSECTION ---------------------------------------------------- -->
+
+An elasticity is prominent concept in economics and related to derivatives. It is a number that tells us by how many percentage points the function value changes, when the argument changes by 1\%. As with derivatives, this definition ought to be interpreted marginally, and elasticities therefore be defined in terms of derivatives. 
+
+::: {#wrn-elasticity .callout-warning icon="false" title="Elasticity."} 
+
+In general, we may want to define an elasticity as
+
+\begin{equation}
+\label{eq:ela}
+\eta(x) = f'(x) \cdot \frac{x}{f(x)} \qquad \text{or} \qquad \eta(x) = f'(x) \left/ \frac{f(x)}{x} \right.
+\end{equation}
+
+rather than using the clumsier
+$$\eta(x) \approx \frac{\Delta f}{\Delta x} \cdot \frac{x}{f(x)}.$$
+
+A to \eqref{eq:ela} equivalent definition is
+$$\eta(x) = \frac{\text d \ln(f(x))}{\text d \ln(x)}.$$
+
+:::
+
+\bigskip
+
+::: {.callout-important title="Elasticity: Core Warnings"}
+
+* elasticity $\neq$ slope of a curve
+* elasticity $\neq$ constant, along a curve (including straight lines)
+* price elasticity negative due to downward-falling demand curve
+* low demand elasticity $\sim$ 'steep' curve in demand diagram $\sim$ quantity reacts little to price change
+* extremes: 
+     + vertical curve = fully inelastic (elasticity of zero)
+     + horizontal curve = fully elastic ((absolute) elasticity of infinity)
+
+:::
+
+\bigskip
+
+:::::: {#cau-DSela .callout-caution icon="false" title="Demand and Supply Elasticities"}
+
+@fig-DSela shows examples of elasticies for demand and supply. You can change the shape of the curve from linear to hyperbolic or square root, and you can shift around $Q_0$ at which the elasticity is evaluated. Clicking "edit graph on desmos" allows you to also change some parameters of each curve.
+
+The Figure has one additional element next to the slope of the function $Q_0$: it shows a ray through the origin to the point on the curve. Its slope is $$\frac{D(p_0)}{p_0}.$$ Compare the second term in \eqref{eq:ela}: the elasticity in a point equals the slope of the function at the point divided by the slope of a ray through the origin to the point. This reflects a relation between a marginal concept and an average concept, and explains why the elasticity is unit free.
+
+:::: {#fig-DSela layout-ncol=3}
+
+::: {#fig-demandela}
+
+```{=html}
+<iframe src="https://www.desmos.com/calculator/qcngeeutyo?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
+```
+
+Price Elasticity of Demand 
+:::
+
+::: {#fig-supplyela}
+
+```{=html}
+<iframe src="https://www.desmos.com/calculator/lglmrwltcz?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
+```
+
+Price Elasticity of Supply
+:::
+
+::::
+
+::::::
+
+
+\bigskip
+
+
+<!-- SUBSECTION ------------------------------------------------------- -->
+### Second Derivative {#sec-sn:2ndder}
+<!-- SUBSECTION ------------------------------------------------------- -->
+
+The second derivative is the (first) derivative on the (first) derivative. So, whereas the first derivative determined $f'(x)$ from $f(x)$, we now want to know the derivative $(f'(x))'$ from $f'(x)$. This is conceptually simple, because we just go through two rounds of differentiation. We denote the second derivative by
+$$f''(x) = \frac{\text{d}^2 f}{\text{d}x^2}.$$
+
+@tbl-tb:derivex2 lists further examples.
+
+|              | $f(x)$                             |  $f'(x)$			 |  $f''(x)$		 | 
+|--------------|------------------------------------|----------------------------|-----------------------|
+| constant     | $a$                                |  $0$ 			 |  $0$ 		 | 
+| linear       | $a+b\cdot x$                       |  $b$ 			 |  $0$ 	         | 
+| quadratic    | $a+b\cdot x+c\cdot x^2$            |  $b+2c\cdot x$ 		 |  $2c$ 		 | 
+| cubic        | $a+b\cdot x+c\cdot x^2+d\cdot x^3$ |  $b+2c\cdot x+3d\cdot x^2$ |  $2c+6d\cdot x$       | 
+| power        | $x^n$                              |  $n\cdot x^{n-1}$          |  $(n-1)n\cdot x^{n-2}$|
+| polynomial   | $\sum_{j=1}^n a_j\cdot x^j$        | $\sum_{j=1}^n a_j\cdot j\cdot x^{j-1}$ | $\sum_{j=1}^n a_j\cdot (j-1)j \cdot x^{j-2}$ |
+| exponential  | $\exp(x)$                          |  $\exp(x)$ 		 |  $\exp(x)$ 		 | 
+| logarithm    | $\ln(x)$                           |  $\dfrac{1}{x}$		 |  $-\dfrac{1}{x^2}$	 | 
+
+
+: Examples of (First and) Second Derivatives {#tbl-tb:derivex2 .striped .hover}
+
+<!-- SUBSECTION ------------------------------------------------------- -->
+### Maximization and Minimization {#sec-sn:max}
+<!-- SUBSECTION ------------------------------------------------------- -->
+
+
+We denote to maximizing a (twice) differentiable function with
+
+$$\max_{x} f(x)$$
+
+The solution is a (local) maximum, that is, the point $(x^\star,f(x^\star))$, for which
+
+$$f(x^\star) \ge f(x)$$
+
+in a neighborhood of $x^\star$. It can be found by applying the following necessary (first  and second order) conditions.
+
+First order condition (FOC)
+
+$$f'(x) = 0$$
+
+second order condition (SOC)
+
+$$f''(x) < 0.$$
+
+\bigskip
+
+::: {#nte-min .callout-note icon="false" title="Minimization."}
+
+The first order condition is the same for minimization. The second order condition reads
+
+$$f''(x) > 0.$$
+
+:::
+
+\bigskip
+
+The maximum $(x^\star,f(x^\star))$ can be found by solving the first order condition $f'()=0$ for $x=x^\circ$ and inserting $x^\circ$ into the second order condition $f''()<0$ to check if it holds; if yes, then $x^\star=x^\circ$.
+
+It is customary in economic models to restrict functions in such a way that one can exclude the possibility that the point identified by the first order condition is not a maximum. That is to say, the first order condition will be both necessary and sufficient. For instance, a globally concave function will have a maximum where the the first order condition is satisfied, since the second order condition holds automatically. 
+
+If the function is however not so "well behaved", there is no guarantee that the first order condition yields a maximum; the points found are only potential candidates, and they may turn out to be either minima or saddle points (where the second derivate changes signs to the right and left of $x^\circ$).
+
+\bigskip
+
+<!-- Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+::::: {.grid}
+
+:::: {.g-col-6} 
+
+ @fig-deriv1and2 shows a nonlinear function, indicates the size of the first derivative at a point and the sign of the second derivative. 
+
+::: {.callout-tip icon="false" title="Play!"}
+
+Shift the movable point around and try to catch the points where
+
+* the first derivative is zero
+* the second derivative is zero
+
+:::
+
+::: {#tip-secder .callout-tip icon="false" title="Do the Math and Check!"}
+
+The function in @fig-deriv1and2 is a third-order polynomial of the form $$f(x)=ax^3+bx^2+cx+d$$
+The initial parameter values are $a=0.2$, $b=1.2$, $c=0.5$ and $d=-2.$
+
+Determine analytically first and second derivative, find all minima and maxima and inflection points. Compare with your graphical solution in the figure. 
+
+Change the parameter values and repeat 3 times!
+
+:::
+
+::::
+
+:::: {.g-col-6} 
+
+
+::: {#fig-deriv1and2}
+
+```{=html}
+<iframe src="https://www.desmos.com/calculator/ibhc09svn2?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
+```
+First and Second Derivative
+
+:::
+
+::::
+
+:::::
+<!-- End Two Column Setup _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ -->
+
+
+<!-- SECTION ********************************************************** -->
+## Analysis of Functions of Two or More Variables {#sec-sn:anal2}
+<!-- SECTION ********************************************************** -->
+
+<!-- SUBSECTION ------------------------------------------------------- -->
+### Partial Derivatives {#sec-sn:der2}
+<!-- SUBSECTION ------------------------------------------------------- -->
+
+::: {#wrn-partial .callout-warning icon="false" title="Partial Derivative."} 
+
+
+If $f$ is a function of two variables $f(x_1,x_2)$, then we can define the partial derivative with respect to either $x_1$ or $x_2$. For instance, for $x_1$, we have
+
+$$\frac{\partial f}{\partial x_1}  = \lim_{\Delta x_1 \to 0} \frac{f(x_1+\Delta x_1,x_2)-f(x_1,x_2)}{\Delta x_1}.$$
+
+:::
+
+We view the function as a function of just one variable $x_1$, and treat the other as if it were a constant. Then, we take the derivative as usual. The results of @tbl-tb:derivgen,  @tbl-tb:derivgen and  @tbl-tb:derivex2 carry over directly. Do note the special symbol $\partial x$ that indicates a partial derivative. 
+
+\bigskip
+
+Partial derivatives are also denoted by $\displaystyle f_{1} = \frac{\partial f}{\partial x_1}$, $\displaystyle f_{11} = \frac{\partial^2 f}{\partial x_1^2}$, $\displaystyle f_{12} = \frac{\partial^2 f}{\partial x_1 \partial x_2}$, where the latter is a cross-derivative. For those we have
+a symmetry property
+ 
+$$f_{21}=f_{12}.$$
+
+
+<!-- SUBSECTION ------------------------------------------------------- -->
+### Maximization with Two Variables {#sec-sn:max2}
+<!-- SUBSECTION ------------------------------------------------------- -->
+
+With two (or more) arguments of a function, we need to determine the first order conditions with respect to each variable and solve a system of equations. There is nothing difficult about it (however we simply assume that the second order conditions hold, which also involve cross-derivatives).
+
+::: {#cau-2args .callout-caution icon="false" title="Two Variables."}
+
+Consider the function 
+
+$$f(x_1,x_2) = -\frac{1}{2}x_1^2-\frac{1}{2}x_2^2$$
+
+This is a simple quadratic function with two arguments, and it is negative for all $x_1>0,x_2>0$, as rewriting makes clear.
+
+$$f(x_1,x_2) = -\frac{1}{2}(x_1^2+x_2^2).$$
+
+First order conditions are
+\begin{eqnarray*}
+f_1(x_1,x_2) &=& -x_1 = 0 \\
+f_2(x_1,x_2) &=& -x_2 = 0 
+\end{eqnarray*}
+such that $x_1^\star = x^\star_2 = 0$ and a
+maximum of $f(0,0)=0$.
+
+To see this directly, code the function in the [Desmos 3D calculator](https://desmos.com/3d){target="_blank"}
+
+:::
+
+<!-- SUBSECTION ------------------------------------------------------- -->
+### Maximization under Constraints {#sec-sn:maxcf}
+<!-- SUBSECTION ------------------------------------------------------- -->
+
+A suitable method to maximize a function taking into account a constraint that needs to be obeyed is the so-called 'direct' method with substitution. We illustrate with an example of a consumer optimizing their utility function under budget constraint.
+
+::: {#cau-copt1 .callout-caution icon="false" title="Consumer Optimization."}
+
+Let the function to be maximized be
+\begin{equation}
+\label{eq:objex}
+\max_{x_1,x_2} u(x_1,x_2) = 2 \ln x_1 + \ln x_2
+\end{equation}
+under the constraint that
+\begin{equation}
+\label{eq:constex}
+ p_1 \cdot x_1 +  p_2 \cdot x_2 -  m = 0
+\end{equation}
+We seek a set of values for $x_1$ and $x_2$ that maximize (\ref{eq:objex}) taking into account (\ref{eq:constex}). These values will be functions of the parameters $p_1$, $p_2$ and $m$.
+
+We can solve this problem 'directly' by first solving (\ref{eq:constex}) for $x_2$,
+\begin{equation}
+\label{eq:constex1}
+x_2 = \frac{m- p_1 x_1}{ p_2}
+\end{equation}
+and substituting into (\ref{eq:objex}):
+\begin{equation}
+\label{eq:objex1}
+f(x_1) \equiv u\left(x_1,\frac{m- p_1 x_1}{ p_2}\right) = 2 \ln x_1 + \ln\left( \frac{m- p_1 x_1}{ p_2}\right).
+\end{equation}
+We then maximize this function without any constraint. The first-order condition is
+
+$$f'(x_1) = \frac{2}{x_1} - \frac{ p_2}{m- p_1 x_1} = 0$$
+
+Solving for $x_1$ gives the optimal value $x_1^\star=\frac{2}{3} \cdot  m/ p_1$, plugging this into (\ref{eq:constex1}) gives the optimal value $x_2^\star=\frac{1}{3} \cdot  m/ p_2$. Here, we have demand for good 1 (2) as function of price $p_1$ ($p_2$) and money income $m$.
+
+:::
+
+\bigskip
+
+Note, what this approach has achieved: we had two variables to choose from but did not use two first-order conditions as in @sec-sn:max2. Instead, the budget constraint creates a direct link between the choice variables $x_1$ and $x_2$: from it, we express one variable as a function of the other and hence get rid of one variable. We are left with a simple maximization problem as in @sec-sn:max.
+
