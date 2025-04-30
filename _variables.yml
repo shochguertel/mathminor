@@ -1,5 +1,32 @@
-# last reviewed: 20241003SH (use edu.nl)
+# last reviewed: 20250430SH (use edu.nl)
 # [2] Modeling Using Desmos Graphs 
 desmos-fig-desmosplaygraph: "https://edu.nl/jkmmy"
-# [2.9] 3D utility
+# [2.1]	Trapezoid
+mathminor-fig-trapezoid: "https://edu.nl/h98bh"
+# [2.2]	Welfare Loss Triangle
+mathminor-fig-dwl: "https://edu.nl/tg9tc"
+# [2.3]	Discontinuous Function
+mathminor-fig-discontf: "https://edu.nl/433e4"
+# [2.4]	Monotonic Function?
+mathminor-fig-mono: "https://edu.nl/emb79" 
+# [2.5]	Demand Function, Drawn the Economist’s Way
+mathminor-fig-demecon: "https://edu.nl/gx734"
+# [2.6]	Exploring Concavity and Convexity
+mathminor-fig-conc: "https://edu.nl/4m8q7"
+# [2.7]	Natural Logarithm and its Inverse, the Exponential Function
+mathminor-fig-lnexp: "https://edu.nl/vb76m"
+# [2.8]	Demand, Supply, and Equilibrium
+mathminor-fig-demsup:  "https://edu.nl/b8bpf"
+# [2.9]	3D Function and 2D Level Curves
 desmos-fig-3Dutil: "https://edu.nl/7rfdb"
+# [2.1]	Family of Demands, by Income
+mathminor-fig-demfam: "https://edu.nl/j3e43" 
+# [2.11]	Shifting the Demand Curve
+mathminor-fig-demshift: "https://edu.nl/4mjbx"
+# [2.12]	First Derivative and Approximation Error
+mathminor-fig-1stderive: "https://edu.nl/6wqpw"
+# [2.13]	Elasticities
+mathminor-fig-demandela: "https://edu.nl/jx9t4"
+mathminor-fig-supplyela: "https://edu.nl/hh6bf"
+# [2.14]	First and Second Derivative
+mathminor-fig-deriv1and2: "https://edu.nl/xmjpd" 
